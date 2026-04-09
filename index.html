@@ -85,13 +85,7 @@
 
   /* Status Bar */
   .status-bar {
-    background: var(--navy);
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    flex-shrink: 0;
+    display: none;
   }
   .status-time {
     font-size: 13px;
@@ -3245,23 +3239,20 @@
             <div style="padding:10px 16px 4px;">
               <div style="font-size:11px;font-weight:700;color:var(--text-2);margin-bottom:8px;">Evidence</div>
               <div onclick="showEvidenceSummary()" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:30px;height:30px;border-radius:8px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                  <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Knife</div><div style="font-size:10px;color:var(--text-3);">B123455 · Floor near entry</div></div>
+                <div style="display:flex;align-items:center;">
+                  <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Fingerprints</div><div style="font-size:10px;color:var(--text-3);">B123455 · Kitchen window</div></div>
                 </div>
                 <span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">In Progress</span>
               </div>
               <div onclick="showEvidenceSummary()" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:30px;height:30px;border-radius:8px;background:#D1FAE5;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg></div>
-                  <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Blood Sample</div><div style="font-size:10px;color:var(--text-3);">B123456 · Window frame smear</div></div>
+                <div style="display:flex;align-items:center;">
+                  <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Knife</div><div style="font-size:10px;color:var(--text-3);">B123456 · Floor near entry</div></div>
                 </div>
-                <span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Handed Off</span>
+                <span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">In Progress</span>
               </div>
               <div onclick="showEvidenceSummary()" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:30px;height:30px;border-radius:8px;background:#EDE9FE;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
-                  <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Fingerprint Card</div><div style="font-size:10px;color:var(--text-3);">B123457 · Kitchen window</div></div>
+                <div style="display:flex;align-items:center;">
+                  <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Gun</div><div style="font-size:10px;color:var(--text-3);">B123457 · Living room sofa</div></div>
                 </div>
                 <span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">In Progress</span>
               </div>
@@ -3309,7 +3300,7 @@
               </div>
               <div class="case-card" data-case-status="In Progress">
                 <div class="case-card-notif">1</div>
-                <div class="case-card-title">Eastside Burglary Scene</div>
+                <div class="case-card-title">Riverside Auto Theft</div>
                 <div class="case-card-num">#M123443</div>
                 <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Mar 20 · 11:15 AM</div>
                 <div class="case-card-foot">
@@ -3346,7 +3337,7 @@
           <div class="act-list-item">
             <div class="act-list-dot" style="background:var(--navy)"></div>
             <div>
-              <div class="act-list-text">Knife logged from entryway</div>
+              <div class="act-list-text">Glass fragments logged from entryway</div>
               <div class="act-list-time">10:02 AM</div>
             </div>
           </div>
@@ -4504,7 +4495,7 @@
     <!-- Evidence Footer -->
     <div class="evidence-footer">
       <button class="btn btn-outline" data-requires-type>Save draft</button>
-      <button class="btn btn-primary" data-requires-type style="opacity:0.38;cursor:not-allowed" id="submit-evidence-btn" disabled onclick="showPreviewForSubmit()">
+      <button class="btn btn-primary" data-requires-type style="opacity:0.38;cursor:not-allowed" id="submit-evidence-btn" disabled onclick="handleEvidenceSubmitAttempt(event)">
         Submit Evidence
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
@@ -5385,6 +5376,68 @@
     if (node) node.textContent = value;
   }
 
+  function getRegionalNow() {
+    return new Date();
+  }
+
+  function pad2(value) {
+    return String(value).padStart(2, '0');
+  }
+
+  function formatRegionalDate(date) {
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric'
+    }).format(date);
+  }
+
+  function formatRegionalGreetingDate(date) {
+    return new Intl.DateTimeFormat('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric'
+    }).format(date);
+  }
+
+  function formatRegionalTime(date) {
+    return new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(date);
+  }
+
+  function formatRegionalTimeInput(date) {
+    return `${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
+  }
+
+  function updateStatusBarTimes() {
+    const now = getRegionalNow();
+    const timeLabel = formatRegionalTime(now);
+    document.querySelectorAll('.status-time').forEach(node => {
+      node.textContent = timeLabel;
+    });
+  }
+
+  function syncNewCaseDateTime() {
+    const now = getRegionalNow();
+    const dateInput = el('case-date-input');
+    const timeInput = el('case-time-input');
+    if (dateInput) dateInput.value = `${pad2(now.getMonth() + 1)}/${pad2(now.getDate())}/${now.getFullYear()}`;
+    if (timeInput) timeInput.value = formatRegionalTimeInput(now);
+  }
+
+  function syncRegionalUI() {
+    const now = getRegionalNow();
+    APP_STATE.currentCase.date = formatRegionalDate(now);
+    APP_STATE.currentCase.time = formatRegionalTime(now);
+    updateStatusBarTimes();
+    syncNewCaseDateTime();
+    setText('dash-greeting-meta', formatRegionalGreetingDate(now));
+  }
+
   function getCaseLabel() {
     return `${APP_STATE.currentCase.name} · ${APP_STATE.currentCase.status}`;
   }
@@ -5480,7 +5533,7 @@
     setText('cs-added-date', APP_STATE.currentCase.date);
     setText('cs-empty-lead', APP_STATE.userName);
     setText('cs-added-lead', APP_STATE.userName);
-    setText('dash-greeting-meta', 'Tuesday, April 07, 2026');
+    setText('dash-greeting-meta', formatRegionalGreetingDate(getRegionalNow()));
     setText('evidence-case-label', `Case #: ${APP_STATE.currentCase.caseIdShort}`);
   }
 
@@ -5550,7 +5603,7 @@
     CS_EVIDENCE.items.blood.parentId = null;
     const target = (APP_STATE.evidenceDraft.linkedEvidence || []).find(val => {
       const lower = val.toLowerCase();
-      return lower.includes('knife') || lower.includes('b123455');
+      return lower.includes('glass') || lower.includes('b123455');
     });
     if (target) {
       CS_EVIDENCE.items.blood.parentId = 'glass';
@@ -5608,6 +5661,10 @@
     if (id === 'evidence') {
       populateEvidenceForm();
     }
+
+    if (id === 'new-case') {
+      syncNewCaseDateTime();
+    }
   }
 
   // ================================================================
@@ -5636,11 +5693,12 @@
       btn.classList.remove('active', 'completed');
       panel.classList.remove('active');
 
+      if (completedTabs.has(tab)) {
+        btn.classList.add('completed');
+      }
       if (tab === activeTab) {
         btn.classList.add('active');
         panel.classList.add('active');
-      } else if (completedTabs.has(tab)) {
-        btn.classList.add('completed');
       }
     });
 
@@ -5801,7 +5859,7 @@
     isSubmitted = true;
     if (isFirstSubmit) {
       recordActivity('Fingerprint Card added', 'Dom Dolla', 'DD', PARTNER_COLOR);
-      recordActivity('Knife added', 'Dom Dolla', 'DD', PARTNER_COLOR);
+      recordActivity('Glass Fragments added', 'Dom Dolla', 'DD', PARTNER_COLOR);
       recordActivity(`${getEvidenceDisplayName(APP_STATE.evidenceDraft)} added`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
     }
     recordActivity(`${getEvidenceDisplayName(APP_STATE.evidenceDraft)} submitted`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
@@ -5894,9 +5952,9 @@
       },
       glass: {
         id: 'B123455',
-        type: 'Knife',
-        name: 'Knife (floor near entry)',
-        meta: '09:18 AM · Added by partner',
+        type: 'Glass Fragments',
+        name: 'Glass Fragments',
+        meta: '09:18 AM · Entryway floor',
         status: 'In Progress',
         statusClass: 'badge-amber',
         officer: 'DD',
@@ -5906,7 +5964,7 @@
         id: 'B123457',
         type: 'Fingerprint Card',
         name: 'Fingerprint Card',
-        meta: '09:24 AM · Optional supporting evidence',
+        meta: '09:24 AM · Found on glass fragments',
         status: 'In Progress',
         statusClass: 'badge-amber',
         officer: 'DD',
@@ -5915,7 +5973,7 @@
     };
     const linkedTarget = (draft.linkedEvidence || []).find(val => {
       const lower = val.toLowerCase();
-      return lower.includes('knife') || lower.includes('b123455');
+      return lower.includes('glass') || lower.includes('b123455');
     });
     if (linkedTarget) items.blood.parentId = 'glass';
     return items;
@@ -6193,6 +6251,12 @@
   }
 
   function showPreviewForSubmit() {
+    if (!isEvidenceReadyForPreview()) {
+      checkSubmitReady();
+      showScreen('evidence');
+      switchTab('printlabel');
+      return;
+    }
     syncPreview();
     applyDraftLinkageToCaseSummary();
     previewMode = 'submit';
@@ -6260,17 +6324,32 @@
   let isSubmitted = false;
   let labelSigned = false;
 
+  function isEvidenceReadyForPreview() {
+    return !!APP_STATE.evidenceDraft.type && labelSigned && TAB_ORDER.every(tab => completedTabs.has(tab));
+  }
+
   // ================================================================
   // SUBMIT READINESS CHECK
   // ================================================================
   function checkSubmitReady() {
-    const allVisited = TAB_ORDER.every(t => completedTabs.has(t) || t === activeTab);
-    const ready = !!APP_STATE.evidenceDraft.type && allVisited && labelSigned;
+    const ready = isEvidenceReadyForPreview();
     const btn = document.getElementById('submit-evidence-btn');
     if (!btn) return;
     btn.disabled = !ready;
     btn.style.opacity = ready ? '1' : '0.38';
     btn.style.cursor = ready ? 'pointer' : 'not-allowed';
+  }
+
+  function handleEvidenceSubmitAttempt(event) {
+    if (!isEvidenceReadyForPreview()) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      checkSubmitReady();
+      return;
+    }
+    showPreviewForSubmit();
   }
 
   // ================================================================
@@ -6369,6 +6448,8 @@
 
     // Mark label signed + re-check if submit is now ready
     labelSigned = true;
+    completedTabs.add('printlabel');
+    updateTabs();
     applyDraftLinkageToCaseSummary();
     if (APP_STATE.task1Unlocked) renderCsEvidence();
     syncPreview();
@@ -6736,12 +6817,15 @@
   function createCase() {
     const caseName = ((el('case-name-input') || {}).value || '').trim() || 'Oakland Homicide Investigation';
     const caseType = ((el('case-type-select') || {}).value || '').trim() || 'Homicide';
+    const regionalNow = getRegionalNow();
+    const caseDate = formatRegionalDate(regionalNow);
+    const caseTime = formatRegionalTime(regionalNow);
     APP_STATE.currentCase = {
       name: caseName,
       type: caseType,
       location: (el('case-location-input') || {}).value || 'Crime Scene, Oakland, CA',
-      date: 'Apr 07, 2026',
-      time: '09:30 AM',
+      date: caseDate,
+      time: caseTime,
       caseNumber: (el('case-number-input') || {}).value || 'CAR-2026-0047',
       caseIdShort: (el('case-number-input') || {}).value || 'CAR-2026-0047',
       labNumber: (el('lab-number-input') || {}).value || 'LAB-2026-007',
@@ -6940,7 +7024,7 @@
     { id:'CAR-2026-0041', name:'Oakland Homicide Investigation', type:'Homicide',               status:'In Progress', statusClass:'badge-amber',  officer:'Guy Nutter',  initials:'GN', lastOpened:'Today, 9:42 AM',   evidence:3, color:'#D97706' },
     { id:'CAR-2026-0038', name:'Harbor Homicide Case',          type:'Homicide Investigation', status:'In Progress', statusClass:'badge-amber',  officer:'Sarah Kim',    initials:'SK', lastOpened:'Today, 8:15 AM',   evidence:8, color:'#2563EB' },
     { id:'CAR-2026-0035', name:'Westside Drug Trafficking',     type:'Drug Trafficking',       status:'In Progress', statusClass:'badge-amber',  officer:'Dom Dolla',    initials:'DD', lastOpened:'Yesterday, 3:50 PM', evidence:5, color:'#7C3AED' },
-    { id:'CAR-2026-0029', name:'Eastside Burglary Scene',       type:'Burglary',               status:'Handed Off',  statusClass:'badge-green',  officer:'Mike Reeves',  initials:'MR', lastOpened:'Mar 8, 11:20 AM',  evidence:2, color:'#059669' },
+    { id:'CAR-2026-0029', name:'Riverside Auto Theft',          type:'Vehicle Theft',          status:'Handed Off',  statusClass:'badge-green',  officer:'Mike Reeves',  initials:'MR', lastOpened:'Mar 8, 11:20 AM',  evidence:2, color:'#059669' },
     { id:'CAR-2026-0024', name:'Downtown Assault',              type:'Assault',                status:'Handed Off',  statusClass:'badge-green',  officer:'Jessica Park', initials:'JP', lastOpened:'Mar 2, 4:05 PM',   evidence:4, color:'#DC2626' },
     { id:'CAR-2026-0019', name:'Financial Fraud Investigation', type:'Fraud Investigation',    status:'Handed Off',  statusClass:'badge-green',  officer:'Tom Bradley',  initials:'TB', lastOpened:'Feb 20, 9:00 AM',  evidence:6, color:'#0D9488' }
   ];
@@ -7075,6 +7159,7 @@
   //   evidence-printlabel | preview
   // ================================================================
   (function() {
+    syncRegionalUI();
     const params = new URLSearchParams(window.location.search);
     const s = params.get('s');
     const tabMap2 = {
@@ -7097,6 +7182,8 @@
     populateEvidenceForm();
     renderActivityFeeds();
     syncPreview();
+    updateStatusBarTimes();
+    setInterval(updateStatusBarTimes, 30000);
   })();
 </script>
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
