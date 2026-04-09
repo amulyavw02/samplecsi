@@ -3231,7 +3231,7 @@
               <div style="display:flex;align-items:center;justify-content:space-between;">
                 <div>
                   <div style="font-size:15px;font-weight:800;color:var(--text-1);" id="dash-recent-case-name">Oakland Homicide Investigation</div>
-                  <div style="font-size:11px;color:var(--text-3);margin-top:2px;" id="dash-recent-case-meta">#M123456 · Last opened: Today, 9:42 AM</div>
+                  <div style="font-size:11px;color:var(--text-3);margin-top:2px;" id="dash-recent-case-meta">#M123456 · Last opened: Apr 08, 5:40 PM</div>
                 </div>
                 <span class="badge badge-amber" style="font-size:10px;padding:3px 9px;border-radius:20px;flex-shrink:0;" id="dash-recent-case-status">In Progress</span>
               </div>
@@ -3276,7 +3276,7 @@
                 <div class="case-card-notif">3</div>
                 <div class="case-card-title">Oakland Homicide Investigation</div>
                 <div class="case-card-num">#M123456</div>
-                <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Today, 9:42 AM</div>
+                <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Apr 08, 5:40 PM</div>
                 <div class="case-card-foot">
                   <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">In Progress</span>
                   <div class="case-card-avs">
@@ -5340,8 +5340,9 @@
       name: 'Oakland Homicide Investigation',
       type: 'Homicide',
       location: 'Crime Scene, Oakland, CA',
-      date: 'Apr 07, 2026',
-      time: '09:30 AM',
+      date: 'Apr 08, 2026',
+      time: '05:40 PM',
+      lastOpened: 'Apr 08, 5:40 PM',
       caseNumber: 'CAR-2026-0047',
       caseIdShort: 'M123456',
       labNumber: 'LAB-2026-007',
@@ -5431,8 +5432,6 @@
 
   function syncRegionalUI() {
     const now = getRegionalNow();
-    APP_STATE.currentCase.date = formatRegionalDate(now);
-    APP_STATE.currentCase.time = formatRegionalTime(now);
     updateStatusBarTimes();
     syncNewCaseDateTime();
     setText('dash-greeting-meta', formatRegionalGreetingDate(now));
@@ -5521,7 +5520,7 @@
 
   function syncCaseDisplays() {
     setText('dash-recent-case-name', APP_STATE.currentCase.name);
-    setText('dash-recent-case-meta', `#${APP_STATE.currentCase.caseIdShort} · Last opened: Today, ${APP_STATE.currentCase.time}`);
+    setText('dash-recent-case-meta', `#${APP_STATE.currentCase.caseIdShort} · Last opened: ${APP_STATE.currentCase.lastOpened || `Today, ${APP_STATE.currentCase.time}`}`);
     setText('dash-recent-case-status', APP_STATE.currentCase.status);
     setText('case-no-empty', `Case #: ${APP_STATE.currentCase.caseIdShort}`);
     setText('case-no-added', `Case #: ${APP_STATE.currentCase.caseIdShort}`);
@@ -6826,6 +6825,7 @@
       location: (el('case-location-input') || {}).value || 'Crime Scene, Oakland, CA',
       date: caseDate,
       time: caseTime,
+      lastOpened: `Today, ${caseTime}`,
       caseNumber: (el('case-number-input') || {}).value || 'CAR-2026-0047',
       caseIdShort: (el('case-number-input') || {}).value || 'CAR-2026-0047',
       labNumber: (el('lab-number-input') || {}).value || 'LAB-2026-007',
@@ -7021,7 +7021,7 @@
   // ALL CASES PAGE
   // ================================================================
   const CASES_DATA = [
-    { id:'CAR-2026-0041', name:'Oakland Homicide Investigation', type:'Homicide',               status:'In Progress', statusClass:'badge-amber',  officer:'Guy Nutter',  initials:'GN', lastOpened:'Today, 9:42 AM',   evidence:3, color:'#D97706' },
+    { id:'CAR-2026-0041', name:'Oakland Homicide Investigation', type:'Homicide',               status:'In Progress', statusClass:'badge-amber',  officer:'Guy Nutter',  initials:'GN', lastOpened:'Apr 08, 5:40 PM',   evidence:3, color:'#D97706' },
     { id:'CAR-2026-0038', name:'Harbor Homicide Case',          type:'Homicide Investigation', status:'In Progress', statusClass:'badge-amber',  officer:'Sarah Kim',    initials:'SK', lastOpened:'Today, 8:15 AM',   evidence:8, color:'#2563EB' },
     { id:'CAR-2026-0035', name:'Westside Drug Trafficking',     type:'Drug Trafficking',       status:'In Progress', statusClass:'badge-amber',  officer:'Dom Dolla',    initials:'DD', lastOpened:'Yesterday, 3:50 PM', evidence:5, color:'#7C3AED' },
     { id:'CAR-2026-0029', name:'Riverside Auto Theft',          type:'Vehicle Theft',          status:'Handed Off',  statusClass:'badge-green',  officer:'Mike Reeves',  initials:'MR', lastOpened:'Mar 8, 11:20 AM',  evidence:2, color:'#059669' },
