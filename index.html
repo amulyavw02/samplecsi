@@ -221,12 +221,13 @@
     gap: 6px;
     background: var(--navy);
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     padding: 6px 10px 6px 12px;
     border-radius: 20px;
     cursor: default;
     animation: chipEnter 220ms var(--ease-enter) both;
+    min-height: 34px;
   }
   .chip-remove {
     background: rgba(255,255,255,0.2);
@@ -252,13 +253,14 @@
     border: 1.5px dashed var(--border-dark);
     color: var(--text-2);
     background: none;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-    padding: 5px 12px;
+    padding: 6px 12px;
     border-radius: 20px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     transition: border-color 0.15s, color 0.15s;
+    min-height: 34px;
   }
   .chip-ghost:hover { border-color: var(--blue); color: var(--blue); }
   .officer-add-input {
@@ -379,7 +381,7 @@
     margin-left: -8px;
   }
   .avatar-circle:first-child { margin-left: 0; }
-  .avatar-circle:nth-child(2) { background: #3B5FA0; }
+  .avatar-circle:nth-child(2) { background: var(--blue); }
   .avatar-circle:nth-child(3) { background: #5B7FC4; }
   .add-officer-btn {
     font-size: 13px;
@@ -393,26 +395,21 @@
   }
 
   .case-two-col {
-    flex: 1;
     display: flex;
     gap: 20px;
     padding: 20px 28px;
-    overflow: hidden;
   }
   .case-left {
     flex: 0 0 calc(58% - 10px);
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: auto;
-    padding-right: 4px;
   }
   .case-right {
     flex: 0 0 calc(42% - 10px);
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: auto;
   }
 
   .section-label {
@@ -725,7 +722,7 @@
   .ev-acc-children.collapsed { max-height: 0 !important; opacity: 0; }
   #cs-ev-list { display: flex; flex-direction: column; gap: 12px; }
 
-  /* Child row */
+  /* Secondary row */
   .ev-acc-child-row {
     display: flex; align-items: stretch;
     border-bottom: 1px solid #FEF3C7;
@@ -1599,10 +1596,12 @@
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    border-bottom: none;
+    margin-bottom: 2px;
   }
-  .coc-entry:last-child { border-bottom: none; }
+  .coc-entry:last-child { padding-bottom: 10px; }
+  .coc-entry-new { background: #E8F1FF; margin: 0 -20px; padding: 10px 20px; }
   .coc-dot {
     width: 10px;
     height: 10px;
@@ -1767,10 +1766,18 @@
   }
   .ev-type-warning.show { display: flex; }
 
-  /* AI recommendation banner in req exams */
+  /* AI Writing Guide fade-in animation */
+  @keyframes aiGuideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .ai-prompt-card { animation: aiGuideIn 220ms var(--ease-enter) both; }
+  #ai-writing-guide { animation: none; }
+
+  /* AI recommendation banner in req exams — yellow (matches AI Writing Guide) */
   .ai-rec-banner {
-    background: linear-gradient(135deg, #EFF6FF 0%, #EBF2FF 100%);
-    border: 1px solid #C3DFFE;
+    background: #FFFBEB;
+    border-left: 3px solid var(--warning);
     border-radius: var(--radius-lg);
     padding: 14px;
     margin-bottom: 16px;
@@ -1781,7 +1788,7 @@
     gap: 6px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--navy);
+    color: #92400E;
     margin-bottom: 8px;
   }
   .ai-rec-chips {
@@ -1791,8 +1798,8 @@
   }
   .ai-rec-chip {
     background: #fff;
-    border: 1.5px solid #C3DFFE;
-    color: var(--navy);
+    border: 1.5px solid #FDE68A;
+    color: #92400E;
     font-size: 12px;
     font-weight: 600;
     padding: 4px 10px;
@@ -1801,7 +1808,7 @@
     font-family: 'Inter', sans-serif;
     transition: background 0.12s;
   }
-  .ai-rec-chip:hover { background: var(--blue-light); }
+  .ai-rec-chip:hover { background: #FEF3C7; }
 
   /* Exam checkboxes */
   .exam-check-row {
@@ -2508,8 +2515,8 @@
     justify-content: center;
     flex-shrink: 0;
   }
-  .notif-dd-body { flex: 1; }
-  .notif-dd-text { font-size: 12px; font-weight: 500; color: var(--text-1); line-height: 1.45; }
+  .notif-dd-body { flex: 1; min-width: 0; }
+  .notif-dd-text { font-size: 12px; font-weight: 500; color: var(--text-1); line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .notif-dd-text strong { font-weight: 700; color: var(--navy); }
   .notif-dd-time { font-size: 11px; color: var(--text-3); margin-top: 3px; }
   .notif-dd-unread-dot {
@@ -2624,9 +2631,10 @@
     gap: 10px;
     align-items: flex-start;
     position: relative;
-    padding-bottom: 12px;
+    padding: 10px 0;
   }
-  .at-item:last-child { padding-bottom: 0; }
+  .at-item:last-child { padding-bottom: 10px; }
+  .at-item-new { background: #E8F1FF; margin: 0 -20px; padding: 10px 20px; }
   .at-left {
     display: flex;
     flex-direction: column;
@@ -2649,14 +2657,11 @@
     z-index: 1;
     border: 2px solid var(--surface);
   }
-  .at-line {
-    width: 1.5px;
-    background: var(--border);
-    flex: 1;
-    min-height: 14px;
-    margin-top: 2px;
+  .at-line { display: none; }
+  .at-item:not(:last-child) {
+    border-bottom: none;
+    margin-bottom: 2px;
   }
-  .at-item:last-child .at-line { display: none; }
   .at-body { flex: 1; min-width: 0; padding-top: 4px; }
   .at-action { font-size: 12px; font-weight: 600; color: var(--text-1); line-height: 1.35; }
   .at-meta { font-size: 10px; color: var(--text-3); margin-top: 2px; }
@@ -2736,11 +2741,13 @@
   }
   .nav-pill-btn {
     width: 60px;
-    height: 44px;
+    height: 52px;
     border-radius: 22px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 2px;
     cursor: pointer;
     border: none;
     background: transparent;
@@ -2750,6 +2757,14 @@
   }
   .nav-pill-btn.active { background: #F4F3F3; color: var(--navy); }
   .nav-pill-btn:hover:not(.active) { background: var(--bg); color: var(--text-2); }
+  .nav-label {
+    display: block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-align: center;
+  }
 
   /* FAB */
   .fab-wrap {
@@ -2923,11 +2938,11 @@
     min-width: 0;
   }
   .dash-right {
-    width: 192px;
+    width: 230px;
     flex-shrink: 0;
     background: #fff;
     border-left: 1px solid var(--border);
-    padding: 14px 12px;
+    padding: 14px 14px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -3224,7 +3239,7 @@
     flex-direction: column;
     overflow: hidden;
   }
-  .cs-tab-panel.active { display: flex; }
+  .cs-tab-panel.active { display: flex; overflow-y: auto; }
 
   /* Media linkage tab */
   .media-link-body {
@@ -3254,8 +3269,8 @@
   .media-section-title { font-size: 13px; font-weight: 700; color: var(--text-1); }
   .media-thumb-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
     margin-bottom: 4px;
   }
   .media-thumb {
@@ -3288,11 +3303,14 @@
     border-radius: 4px;
   }
   .media-link-right {
-    width: 190px;
+    flex: 0 0 calc(42% - 10px);
     flex-shrink: 0;
-    background: #fff;
+    background: var(--bg);
     border-left: 1px solid var(--border);
-    padding: 14px 12px;
+    padding: 20px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     overflow-y: auto;
   }
 
@@ -3404,30 +3422,30 @@
             <div class="notif-dd-item unread">
               <div class="notif-dd-av" style="background:var(--blue)">DD</div>
               <div class="notif-dd-body">
-                <div class="notif-dd-text"><strong>Dom Dolla</strong> added fingerprint evidence to Case M123456</div>
+                <div class="notif-dd-text"><strong>Dom Dolla</strong> added you to Case <strong>CAR-2026-0047</strong></div>
                 <div class="notif-dd-time">09:48 AM · Today</div>
               </div>
               <div class="notif-dd-unread-dot"></div>
             </div>
             <div class="notif-dd-item unread">
-              <div class="notif-dd-av" style="background:var(--success)">F</div>
+              <div class="notif-dd-av" style="background:#7C3AED">SH</div>
               <div class="notif-dd-body">
-                <div class="notif-dd-text">Blood Sample <strong>B123456</strong> handed off to Lab</div>
+                <div class="notif-dd-text"><strong>Sgt. Hayes</strong> assigned you as Lead Officer on <strong>CAR-2026-0031</strong></div>
                 <div class="notif-dd-time">09:35 AM · Today</div>
               </div>
               <div class="notif-dd-unread-dot"></div>
             </div>
             <div class="notif-dd-item">
-              <div class="notif-dd-av" style="background:#5B7FC4">SK</div>
+              <div class="notif-dd-av" style="background:var(--blue)">DD</div>
               <div class="notif-dd-body">
-                <div class="notif-dd-text"><strong>Skrillex</strong> updated Packaging on Case M123456</div>
+                <div class="notif-dd-text"><strong>Dom Dolla</strong> requested your sign-off on evidence <strong>B123457</strong></div>
                 <div class="notif-dd-time">09:20 AM · Today</div>
               </div>
             </div>
             <div class="notif-dd-item">
-              <div class="notif-dd-av" style="background:#D97706">GN</div>
+              <div class="notif-dd-av" style="background:#D97706">DS</div>
               <div class="notif-dd-body">
-                <div class="notif-dd-text">Case <strong>M123443</strong> assigned to you by Sgt. Hayes</div>
+                <div class="notif-dd-text">Case <strong>CAR-2026-0043</strong> assigned to your unit by <strong>Dispatch</strong></div>
                 <div class="notif-dd-time">Yesterday · 4:12 PM</div>
               </div>
             </div>
@@ -3464,7 +3482,7 @@
                   <div style="font-size:15px;font-weight:800;color:var(--text-1);" id="dash-recent-case-name">Oakland Homicide Investigation</div>
                   <div style="font-size:11px;color:var(--text-3);margin-top:2px;" id="dash-recent-case-meta">#M123456 · Last opened: Apr 08, 5:40 PM</div>
                 </div>
-                <span class="badge badge-amber" style="font-size:10px;padding:3px 9px;border-radius:20px;flex-shrink:0;" id="dash-recent-case-status">In Progress</span>
+                <span class="badge badge-amber" style="font-size:10px;padding:3px 9px;border-radius:20px;flex-shrink:0;" id="dash-recent-case-status">Ongoing</span>
               </div>
             </div>
             <div style="padding:10px 16px 4px;">
@@ -3473,19 +3491,19 @@
                 <div style="display:flex;align-items:center;">
                   <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Fingerprints</div><div style="font-size:10px;color:var(--text-3);">B123455 · Kitchen window</div></div>
                 </div>
-                <span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">In Progress</span>
+                <span class="badge badge-draft" style="font-size:10px;padding:2px 8px;">Draft</span>
               </div>
               <div onclick="showEvidenceSummary()" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
                 <div style="display:flex;align-items:center;">
                   <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Knife</div><div style="font-size:10px;color:var(--text-3);">B123456 · Floor near entry</div></div>
                 </div>
-                <span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">In Progress</span>
+                <span class="badge badge-draft" style="font-size:10px;padding:2px 8px;">Draft</span>
               </div>
               <div onclick="showEvidenceSummary()" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;">
                 <div style="display:flex;align-items:center;">
                   <div><div style="font-size:12px;font-weight:600;color:var(--text-1);">Gun</div><div style="font-size:10px;color:var(--text-3);">B123457 · Living room sofa</div></div>
                 </div>
-                <span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">In Progress</span>
+                <span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Sent for Approval</span>
               </div>
               <button onclick="showScreen('case-summary-added')" style="width:100%;padding:10px 0;background:none;border:none;cursor:pointer;font-family:Inter,sans-serif;font-size:12px;font-weight:600;color:var(--blue);text-align:center;">See more evidence →</button>
             </div>
@@ -3499,17 +3517,17 @@
             </div>
             <div class="filter-chips-row">
               <button class="filter-chip fc-active" data-dash-filter="All" onclick="filterDashCases('All',this)">All</button>
-              <button class="filter-chip" data-dash-filter="In Progress" onclick="filterDashCases('In Progress',this)">In Progress</button>
+              <button class="filter-chip" data-dash-filter="Ongoing" onclick="filterDashCases('Ongoing',this)">Ongoing</button>
               <button class="filter-chip" data-dash-filter="Handed Off" onclick="filterDashCases('Handed Off',this)">Handed Off</button>
             </div>
             <div id="dash-cases-list">
-              <div class="case-card" data-case-status="In Progress" onclick="showScreen('case-summary-added')">
+              <div class="case-card" data-case-status="Ongoing" onclick="showScreen('case-summary-added')">
                 <div class="case-card-notif">3</div>
                 <div class="case-card-title">Oakland Homicide Investigation</div>
-                <div class="case-card-num">#M123456</div>
+                <div class="case-card-num">#M123456 <span style="color:var(--text-3);font-weight:400">· Evidence (3)</span></div>
                 <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Apr 08, 5:40 PM</div>
                 <div class="case-card-foot">
-                  <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">In Progress</span>
+                  <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">Ongoing</span>
                   <div class="case-card-avs">
                     <div class="case-card-av av-1">GN</div>
                     <div class="case-card-av av-2">DD</div>
@@ -3519,7 +3537,7 @@
               </div>
               <div class="case-card" data-case-status="Handed Off">
                 <div class="case-card-title">Downtown Assault</div>
-                <div class="case-card-num">#M123450</div>
+                <div class="case-card-num">#M123450 <span style="color:var(--text-3);font-weight:400">· Evidence (4)</span></div>
                 <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Mar 18 · 2:34 PM</div>
                 <div class="case-card-foot">
                   <span class="badge badge-green" style="font-size:11px;padding:4px 12px;border-radius:20px">Handed Off</span>
@@ -3529,13 +3547,13 @@
                   </div>
                 </div>
               </div>
-              <div class="case-card" data-case-status="In Progress">
+              <div class="case-card" data-case-status="Ongoing">
                 <div class="case-card-notif">1</div>
                 <div class="case-card-title">Riverside Auto Theft</div>
-                <div class="case-card-num">#M123443</div>
+                <div class="case-card-num">#M123443 <span style="color:var(--text-3);font-weight:400">· Evidence (2)</span></div>
                 <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Mar 20 · 11:15 AM</div>
                 <div class="case-card-foot">
-                  <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">In Progress</span>
+                  <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">Ongoing</span>
                   <div class="case-card-avs">
                     <div class="case-card-av av-1">F</div>
                     <div class="case-card-av av-2">SK</div>
@@ -3551,49 +3569,51 @@
         <!-- Right Column: All Activity -->
         <div class="dash-right">
           <div class="act-title">All Activity</div>
-          <div class="act-list-item">
-            <div class="act-list-dot act-dot-amber"></div>
-            <div>
-              <div class="act-list-text">Packaging updated by Skrillex</div>
-              <div class="act-list-time">10:28 AM</div>
+          <div class="act-timeline" style="gap:0">
+            <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div class="at-left"><div class="at-avatar" style="background:#D97706">SK</div></div>
+              <div class="at-body">
+                <div class="at-action"><strong>Skrillex</strong> updated packaging</div>
+                <div class="at-meta">#B123456 · 10:28 AM</div>
+              </div>
+            </div>
+            <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div class="at-left"><div class="at-avatar" style="background:var(--navy)">GN</div></div>
+              <div class="at-body">
+                <div class="at-action"><strong>Guy Nutter</strong> printed label</div>
+                <div class="at-meta">#B123456 · 10:15 AM</div>
+              </div>
+            </div>
+            <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div class="at-left"><div class="at-avatar" style="background:var(--navy)">GN</div></div>
+              <div class="at-body">
+                <div class="at-action"><strong>Guy Nutter</strong> logged glass fragments</div>
+                <div class="at-meta">#B123455 · 10:02 AM</div>
+              </div>
+            </div>
+            <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div class="at-left"><div class="at-avatar" style="background:var(--blue)">DD</div></div>
+              <div class="at-body">
+                <div class="at-action"><strong>Dom Dolla</strong> added fingerprint card</div>
+                <div class="at-meta">#B123457 · 09:45 AM</div>
+              </div>
+            </div>
+            <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div class="at-left"><div class="at-avatar" style="background:var(--success)">GN</div></div>
+              <div class="at-body">
+                <div class="at-action"><strong>Guy Nutter</strong> added blood sample</div>
+                <div class="at-meta">#B123456 · 09:30 AM</div>
+              </div>
+            </div>
+            <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer;padding:8px 0">
+              <div class="at-left"><div class="at-avatar" style="background:var(--navy)">GN</div></div>
+              <div class="at-body">
+                <div class="at-action"><strong>Guy Nutter</strong> created case M123456</div>
+                <div class="at-meta">09:15 AM</div>
+              </div>
             </div>
           </div>
-          <div class="act-list-item">
-            <div class="act-list-dot act-dot-blue"></div>
-            <div>
-              <div class="act-list-text">Label printed · B123456</div>
-              <div class="act-list-time">10:15 AM</div>
-            </div>
-          </div>
-          <div class="act-list-item">
-            <div class="act-list-dot" style="background:var(--navy)"></div>
-            <div>
-              <div class="act-list-text">Glass fragments logged from entryway</div>
-              <div class="act-list-time">10:02 AM</div>
-            </div>
-          </div>
-          <div class="act-list-item">
-            <div class="act-list-dot act-dot-amber"></div>
-            <div>
-              <div class="act-list-text">Fingerprint Card added by Dom Dolla</div>
-              <div class="act-list-time">09:45 AM</div>
-            </div>
-          </div>
-          <div class="act-list-item">
-            <div class="act-list-dot act-dot-green"></div>
-            <div>
-              <div class="act-list-text">Blood Sample B123456 added</div>
-              <div class="act-list-time">09:30 AM</div>
-            </div>
-          </div>
-          <div class="act-list-item">
-            <div class="act-list-dot act-dot-blue"></div>
-            <div>
-              <div class="act-list-text">Case M123456 created by Guy Nutter</div>
-              <div class="act-list-time">09:15 AM</div>
-            </div>
-          </div>
-          <button style="width:100%;margin-top:10px;padding:9px 0;background:none;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;font-family:Inter,sans-serif;font-size:12px;font-weight:600;color:var(--blue);">See all activity →</button>
+          <button onclick="showScreen('case-summary-added')" style="width:100%;margin-top:10px;padding:9px 0;background:none;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;font-family:Inter,sans-serif;font-size:12px;font-weight:600;color:var(--blue);">See all →</button>
         </div><!-- end dash-right -->
 
       </div><!-- end dash-two-col -->
@@ -3604,12 +3624,15 @@
       <div class="bottom-pill-nav">
         <button class="nav-pill-btn active" title="Home">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-label">Home</span>
         </button>
         <button class="nav-pill-btn" title="Cases" onclick="showScreen('all-cases')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span class="nav-label">Cases</span>
         </button>
         <button class="nav-pill-btn" title="Profile">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="nav-label">Profile</span>
         </button>
       </div>
       <!-- FAB backdrop -->
@@ -3710,12 +3733,18 @@
         <div class="form-grid-2">
           <div class="form-row">
             <label class="form-label">Date</label>
-            <input type="text" id="case-date-input" value="04/07/2026" readonly style="background:var(--bg);color:var(--text-2);cursor:not-allowed;" />
+            <input type="text" id="case-date-input" value="04/07/2026" />
           </div>
           <div class="form-row">
             <label class="form-label">Time</label>
-            <input type="time" id="case-time-input" value="09:30" readonly style="background:var(--bg);color:var(--text-2);cursor:not-allowed;" />
+            <input type="time" id="case-time-input" />
           </div>
+        </div>
+
+        <!-- Agency Case Number -->
+        <div class="form-row">
+          <label class="form-label">Agency Case Number</label>
+          <input type="text" id="agency-case-number-input" placeholder="e.g. OPD-2026-1234" />
         </div>
 
         <!-- Case No. / Lab No. -->
@@ -3771,9 +3800,9 @@
           <div class="bell-badge">4</div>
           <div class="notif-dropdown" id="cs-empty-notif">
             <div class="notif-dd-header"><span class="notif-dd-title">Notifications</span><button class="notif-dd-clear" onclick="closeNotifDropdown('cs-empty-notif')">Mark all read</button></div>
-            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> added fingerprint evidence to Case M123456</div><div class="notif-dd-time">09:48 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
-            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--success)">F</div><div class="notif-dd-body"><div class="notif-dd-text">Blood Sample <strong>B123456</strong> handed off to Lab</div><div class="notif-dd-time">09:35 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
-            <div class="notif-dd-item"><div class="notif-dd-av" style="background:#5B7FC4">SK</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Skrillex</strong> updated Packaging on Case M123456</div><div class="notif-dd-time">09:20 AM · Today</div></div></div>
+            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> added you to Case <strong>CAR-2026-0047</strong></div><div class="notif-dd-time">09:48 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
+            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:#7C3AED">SH</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Sgt. Hayes</strong> assigned you as Lead Officer on <strong>CAR-2026-0031</strong></div><div class="notif-dd-time">09:35 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
+            <div class="notif-dd-item"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> requested your sign-off on evidence <strong>B123457</strong></div><div class="notif-dd-time">09:20 AM · Today</div></div></div>
           </div>
         </div>
         <div class="dash-avatar">GN</div>
@@ -3786,7 +3815,7 @@
         <button class="back-btn" onclick="showScreen('all-cases')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
         <div>
           <div class="page-heading-title" id="case-no-empty">Case #: M123456</div>
-          <div class="page-heading-sub" id="case-title-empty">Oakland Homicide Investigation · In Progress</div>
+          <div class="page-heading-sub" id="case-title-empty">Oakland Homicide Investigation · Ongoing</div>
         </div>
       </div>
       <div class="avatars-row">
@@ -3807,7 +3836,7 @@
 
       <!-- Overview Tab -->
       <div class="cs-tab-panel active" id="cs-empty-overview">
-        <div class="case-two-col" style="flex:1;overflow:hidden">
+        <div class="case-two-col">
           <!-- Left Column -->
           <div class="case-left">
             <div class="search-input-wrap">
@@ -3829,14 +3858,14 @@
             <div class="summary-card">
               <div class="summary-card-title">Case Summary</div>
               <div class="summary-divider"></div>
-              <div class="summary-row"><span class="lbl">Status</span><span class="badge badge-amber">In Progress</span></div>
+              <div class="summary-row"><span class="lbl">Status</span><span class="badge badge-amber">Ongoing</span></div>
               <div class="summary-row"><span class="lbl">Location</span><span class="val" id="cs-empty-loc">—</span></div>
               <div class="summary-row"><span class="lbl">Date opened</span><span class="val" id="cs-empty-date">Apr 07, 2026</span></div>
               <div class="summary-row"><span class="lbl">Officer lead</span><span class="val" id="cs-empty-lead">Guy Nutter</span></div>
               <div class="summary-row"><span class="lbl">Evidence items</span><span class="val" id="cs-empty-ev-count">0</span></div>
             </div>
             <div class="summary-card">
-              <div class="summary-card-title">Activity Log</div>
+              <div class="summary-card-title">Chain of Custody</div>
               <div class="summary-divider"></div>
               <div class="activity-log-empty" id="cs-empty-activity">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -3892,12 +3921,15 @@
       <div class="bottom-pill-nav">
         <button class="nav-pill-btn" title="Home" onclick="showScreen('dashboard')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-label">Home</span>
         </button>
         <button class="nav-pill-btn active" title="Cases">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span class="nav-label">Cases</span>
         </button>
         <button class="nav-pill-btn" title="Profile">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="nav-label">Profile</span>
         </button>
       </div>
       <div class="fab-backdrop" id="cs-empty-fab-backdrop" onclick="closeFab('cs-empty')"></div>
@@ -3952,9 +3984,9 @@
           <div class="bell-badge">4</div>
           <div class="notif-dropdown" id="cs-added-notif">
             <div class="notif-dd-header"><span class="notif-dd-title">Notifications</span><button class="notif-dd-clear" onclick="closeNotifDropdown('cs-added-notif')">Mark all read</button></div>
-            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> added fingerprint evidence to Case M123456</div><div class="notif-dd-time">09:48 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
-            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--success)">F</div><div class="notif-dd-body"><div class="notif-dd-text">Blood Sample <strong>B123456</strong> handed off to Lab</div><div class="notif-dd-time">09:35 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
-            <div class="notif-dd-item"><div class="notif-dd-av" style="background:#5B7FC4">SK</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Skrillex</strong> updated Packaging on Case M123456</div><div class="notif-dd-time">09:20 AM · Today</div></div></div>
+            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> added you to Case <strong>CAR-2026-0047</strong></div><div class="notif-dd-time">09:48 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
+            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:#7C3AED">SH</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Sgt. Hayes</strong> assigned you as Lead Officer on <strong>CAR-2026-0031</strong></div><div class="notif-dd-time">09:35 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
+            <div class="notif-dd-item"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> requested your sign-off on evidence <strong>B123457</strong></div><div class="notif-dd-time">09:20 AM · Today</div></div></div>
           </div>
         </div>
         <div class="dash-avatar">GN</div>
@@ -3967,12 +3999,18 @@
         <button class="back-btn" onclick="showScreen('all-cases')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
         <div>
           <div class="page-heading-title" id="case-no-added">Case #: M123456</div>
-          <div class="page-heading-sub" id="case-title-added">Oakland Homicide Investigation · In Progress</div>
+          <div class="page-heading-sub" id="case-title-added">Oakland Homicide Investigation · Ongoing</div>
         </div>
       </div>
-      <div class="avatars-row">
-        <div class="avatar-stack"><div class="avatar-circle">GN</div><div class="avatar-circle">DD</div><div class="avatar-circle">F</div></div>
-        <button class="add-officer-btn">+ Add</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="avatars-row">
+          <div class="avatar-stack"><div class="avatar-circle">GN</div><div class="avatar-circle">DD</div><div class="avatar-circle">F</div></div>
+          <button class="add-officer-btn">+ Add</button>
+        </div>
+        <button class="btn btn-outline" onclick="exportCaseReport()" style="font-size:11px;padding:6px 12px;display:flex;align-items:center;gap:5px;white-space:nowrap">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export
+        </button>
       </div>
     </div>
 
@@ -3988,17 +4026,22 @@
 
       <!-- Overview Tab -->
       <div class="cs-tab-panel active" id="cs-added-overview">
-        <div class="case-two-col" style="flex:1;overflow:hidden">
+        <div class="case-two-col">
           <!-- Left Column -->
           <div class="case-left">
+            <button class="add-evidence-dashed" onclick="showScreen('evidence'); switchTab('description')">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              Add Evidence
+            </button>
+
             <div class="search-input-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
               <input type="text" placeholder="Search evidence…" />
             </div>
 
-            <div class="filter-chips-row" style="margin-top:4px">
+            <div class="filter-chips-row" style="margin-top:-6px">
               <button class="filter-chip fc-active">All</button>
-              <button class="filter-chip">In Progress</button>
+              <button class="filter-chip">Ongoing</button>
               <button class="filter-chip">Linked</button>
               <button class="filter-chip">By You</button>
               <button class="filter-chip-icon-btn">
@@ -4010,11 +4053,6 @@
 
             <!-- Evidence list — JS rendered via renderCsEvidence() -->
             <div id="cs-ev-list"></div>
-
-            <button class="add-evidence-dashed small" style="margin-top:10px" onclick="showScreen('evidence'); switchTab('description')">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-              Add Evidence
-            </button>
           </div>
 
           <!-- Right Column -->
@@ -4022,7 +4060,7 @@
             <div class="summary-card">
               <div class="summary-card-title">Case Summary</div>
               <div class="summary-divider"></div>
-              <div class="summary-row"><span class="lbl">Status</span><span class="badge badge-amber" id="cs-added-status">In Progress</span></div>
+              <div class="summary-row"><span class="lbl">Status</span><span class="badge badge-amber" id="cs-added-status">Ongoing</span></div>
               <div class="summary-row"><span class="lbl">Location</span><span class="val" style="font-size:12px" id="cs-added-loc">Crime Scene, Oakland</span></div>
               <div class="summary-row"><span class="lbl">Date opened</span><span class="val" id="cs-added-date">Apr 07, 2026</span></div>
               <div class="summary-row"><span class="lbl">Lead officer</span><span class="val" id="cs-added-lead">Guy Nutter</span></div>
@@ -4032,65 +4070,62 @@
             <!-- Activity Timeline -->
             <div class="summary-card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-                <div class="summary-card-title" style="margin-bottom:0">Activity Log</div>
-                <span class="badge badge-navy" id="cs-at-badge" style="font-size:10px">5</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div class="summary-card-title" style="margin-bottom:0">Chain of Custody</div>
+                  <span id="cs-at-badge" style="font-size:10px;font-weight:700;color:var(--border-dark);border:1.5px solid var(--border-dark);border-radius:20px;padding:1px 8px;font-family:Inter,sans-serif;">0</span>
+                </div>
+                <button class="act-see-all" style="margin:0;padding:0;font-size:11px">
+                  See all
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
               </div>
               <div class="act-timeline" id="cs-activity-timeline">
-                <div class="at-item">
+                <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                   <div class="at-left">
                     <div class="at-avatar" style="background:var(--success)">GN</div>
-                    <div class="at-line"></div>
                   </div>
                   <div class="at-body">
-                    <div class="at-action">Evidence B123456 submitted</div>
-                    <div class="at-meta">Guy Nutter · 10:02 AM</div>
+                    <div class="at-action"><strong>Guy Nutter</strong> submitted blood sample to lab</div>
+                    <div class="at-meta">#B123456 · Apr 07, 2026 10:02 AM</div>
                   </div>
                 </div>
-                <div class="at-item">
+                <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                   <div class="at-left">
                     <div class="at-avatar" style="background:#5B7FC4">SK</div>
-                    <div class="at-line"></div>
                   </div>
                   <div class="at-body">
-                    <div class="at-action">Packaging updated</div>
-                    <div class="at-meta">Skrillex · 09:52 AM</div>
+                    <div class="at-action"><strong>Sarah Kim</strong> updated packaging</div>
+                    <div class="at-meta">#B123456 · Apr 07, 2026 09:52 AM</div>
                   </div>
                 </div>
-                <div class="at-item">
+                <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                   <div class="at-left">
                     <div class="at-avatar" style="background:var(--blue)">DD</div>
-                    <div class="at-line"></div>
                   </div>
                   <div class="at-body">
-                    <div class="at-action">Fingerprint Card added</div>
-                    <div class="at-meta">Dom Dolla · 09:45 AM</div>
+                    <div class="at-action"><strong>Dom Dolla</strong> added fingerprint card</div>
+                    <div class="at-meta">#B123457 · Apr 07, 2026 09:45 AM</div>
                   </div>
                 </div>
-                <div class="at-item">
+                <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                   <div class="at-left">
                     <div class="at-avatar" style="background:var(--navy)">GN</div>
-                    <div class="at-line"></div>
                   </div>
                   <div class="at-body">
-                    <div class="at-action">Blood Sample B123456 added</div>
-                    <div class="at-meta">Guy Nutter · 09:30 AM</div>
+                    <div class="at-action"><strong>Guy Nutter</strong> added blood sample</div>
+                    <div class="at-meta">#B123456 · Apr 07, 2026 09:30 AM</div>
                   </div>
                 </div>
-                <div class="at-item">
+                <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                   <div class="at-left">
                     <div class="at-avatar" style="background:var(--navy)">GN</div>
-                    <div class="at-line"></div>
                   </div>
                   <div class="at-body">
-                    <div class="at-action">Case M123456 created</div>
-                    <div class="at-meta">Guy Nutter · 09:15 AM</div>
+                    <div class="at-action"><strong>Guy Nutter</strong> created case M123456</div>
+                    <div class="at-meta">Apr 07, 2026 09:15 AM</div>
                   </div>
                 </div>
               </div>
-              <button class="act-see-all">
-                See all activity
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
             </div>
           </div>
         </div>
@@ -4164,43 +4199,57 @@
             </div><!-- end media-link-left -->
 
             <div class="media-link-right">
-              <div class="dash-right-title">Case Summary</div>
-              <div class="summary-row"><span class="lbl">Evidence</span><span class="val">2</span></div>
-              <div class="summary-row"><span class="lbl">Photos</span><span class="val">3</span></div>
-              <div class="summary-row"><span class="lbl">Videos</span><span class="val">1</span></div>
-              <div class="summary-row"><span class="lbl">3D Scans</span><span class="val">0</span></div>
+              <div class="summary-card">
+                <div class="summary-card-title">Case Summary</div>
+                <div class="summary-divider"></div>
+                <div class="summary-row"><span class="lbl">Status</span><span class="badge badge-amber">Ongoing</span></div>
+                <div class="summary-row"><span class="lbl">Location</span><span class="val" style="font-size:12px">Crime Scene, Oakland</span></div>
+                <div class="summary-row"><span class="lbl">Date opened</span><span class="val">Apr 07, 2026</span></div>
+                <div class="summary-row"><span class="lbl">Lead officer</span><span class="val">Guy Nutter</span></div>
+                <div class="summary-row"><span class="lbl">Evidence items</span><span class="val">2</span></div>
+                <div class="summary-row"><span class="lbl">Photos</span><span class="val">3</span></div>
+                <div class="summary-row"><span class="lbl">Videos</span><span class="val">1</span></div>
+              </div>
 
-              <div style="margin-top:14px">
-                <div class="act-title">Activity</div>
+              <div class="summary-card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div class="summary-card-title" style="margin-bottom:0">Chain of Custody</div>
+                    <span id="cs-at-badge-2" style="font-size:10px;font-weight:700;color:var(--border-dark);border:1.5px solid var(--border-dark);border-radius:20px;padding:1px 8px;font-family:Inter,sans-serif;">0</span>
+                  </div>
+                  <button class="act-see-all" style="margin:0;padding:0;font-size:11px">
+                    See all
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
                 <div class="act-timeline">
-                  <div class="at-item">
+                  <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
+                    <div class="at-left">
+                      <div class="at-avatar" style="background:var(--navy)">GN</div>
+                      <div class="at-line"></div>
+                    </div>
+                    <div class="at-body">
+                      <div class="at-action"><strong>Guy Nutter</strong> submitted blood sample to lab</div>
+                      <div class="at-meta">#B123456 · Apr 07, 2026 10:02 AM</div>
+                    </div>
+                  </div>
+                  <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                     <div class="at-left">
                       <div class="at-avatar" style="background:var(--blue)">DD</div>
                       <div class="at-line"></div>
                     </div>
                     <div class="at-body">
-                      <div class="at-action">Photo linked to B123457</div>
-                      <div class="at-meta">Dom Dolla · 09:47 AM</div>
+                      <div class="at-action"><strong>Dom Dolla</strong> added fingerprint card</div>
+                      <div class="at-meta">#B123457 · Apr 07, 2026 09:45 AM</div>
                     </div>
                   </div>
-                  <div class="at-item">
+                  <div class="at-item" onclick="showEvidenceSummary()" style="cursor:pointer">
                     <div class="at-left">
                       <div class="at-avatar" style="background:var(--navy)">GN</div>
-                      <div class="at-line"></div>
                     </div>
                     <div class="at-body">
-                      <div class="at-action">Video added</div>
-                      <div class="at-meta">Guy Nutter · 09:44 AM</div>
-                    </div>
-                  </div>
-                  <div class="at-item">
-                    <div class="at-left">
-                      <div class="at-avatar" style="background:var(--navy)">GN</div>
-                      <div class="at-line"></div>
-                    </div>
-                    <div class="at-body">
-                      <div class="at-action">3 photos added to B123456</div>
-                      <div class="at-meta">Guy Nutter · 09:31 AM</div>
+                      <div class="at-action"><strong>Guy Nutter</strong> added blood sample</div>
+                      <div class="at-meta">#B123456 · Apr 07, 2026 09:30 AM</div>
                     </div>
                   </div>
                 </div>
@@ -4244,12 +4293,15 @@
       <div class="bottom-pill-nav">
         <button class="nav-pill-btn" title="Home" onclick="showScreen('dashboard')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-label">Home</span>
         </button>
         <button class="nav-pill-btn active" title="Cases">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span class="nav-label">Cases</span>
         </button>
         <button class="nav-pill-btn" title="Profile">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="nav-label">Profile</span>
         </button>
       </div>
       <div class="fab-backdrop" id="cs-added-fab-backdrop" onclick="closeFab('cs-added')"></div>
@@ -4339,7 +4391,7 @@
       <button class="tab-btn" id="tab-btn-requestedexams" data-requires-type onclick="switchTab('requestedexams')">
         <span class="tab-dot"></span>
         <svg class="tab-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        Req. Exams
+        Lab Exams
       </button>
       <button class="tab-btn" id="tab-btn-printlabel" data-requires-type onclick="switchTab('printlabel')">
         <span class="tab-dot"></span>
@@ -4365,16 +4417,15 @@
         <div class="form-row" style="margin-bottom:14px">
           <label class="form-label">Location Found</label>
           <div class="input-wrap" style="margin-top:6px">
-            <span class="icon-left">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
-            <input type="text" id="evidence-location-input" data-requires-type class="input-with-left-icon" placeholder="Enter location or describe scene area" />
+            <input type="text" id="evidence-location-input" data-requires-type placeholder="Enter location or describe scene area" />
           </div>
         </div>
 
         <div class="form-row" style="margin-bottom:14px">
-          <label class="form-label">Time Collected <span style="font-size:11px;font-weight:400;color:var(--text-3)">(auto-filled)</span></label>
-          <input type="time" id="evidence-time-input" data-requires-type value="09:30" readonly style="margin-top:6px;background:#F8FAFC;color:var(--text-2);cursor:not-allowed" />
+          <label class="form-label">Time Collected</label>
+          <div style="margin-top:6px;cursor:pointer" onclick="var t=document.getElementById('evidence-time-input');try{t.showPicker();}catch(e){t.focus();}">
+            <input type="time" id="evidence-time-input" data-requires-type style="width:100%;pointer-events:none;" />
+          </div>
         </div>
 
         <div class="form-row" style="margin-bottom:14px">
@@ -4399,6 +4450,41 @@
         </div>
 
         <div class="form-row" style="margin-bottom:14px">
+          <label class="form-label">Found By</label>
+          <div style="margin-top:6px;display:flex;flex-direction:column;gap:6px">
+            <select id="found-by-select" data-requires-type onchange="onFoundByChange(this)" style="width:100%">
+              <option value="Guy Nutter" selected>Guy Nutter (You)</option>
+              <option value="Sarah Kim">Sarah Kim</option>
+              <option value="Dom Dolla">Dom Dolla</option>
+              <option value="Mike Reeves">Mike Reeves</option>
+              <option value="Other">Other…</option>
+            </select>
+            <input type="text" id="found-by-input" data-requires-type placeholder="Enter officer name…" value="" style="display:none" />
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom:14px">
+          <label class="form-label">Tests Conducted in Field</label>
+          <div id="field-tests-wrap" style="margin-top:6px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;flex-wrap:wrap;gap:6px" id="field-test-chips"></div>
+            <select id="field-test-select" data-requires-type onchange="addFieldTest(this)" style="width:100%">
+              <option value="" disabled selected>Select or add test…</option>
+              <option>Presumptive Blood Test</option>
+              <option>Presumptive Drug Test</option>
+              <option>GSR (Gunshot Residue)</option>
+              <option>pH Test</option>
+              <option>Luminol</option>
+              <option value="Other">Other…</option>
+            </select>
+            <div id="field-test-other-wrap" style="display:none;gap:6px;align-items:center;flex-wrap:nowrap">
+              <input type="text" id="field-test-other-input" data-requires-type placeholder="Enter test name…" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomFieldTest();}" style="flex:1;min-width:0" />
+              <button onclick="addCustomFieldTest()" style="background:var(--navy);color:#fff;border:none;padding:8px 14px;border-radius:var(--radius-md);cursor:pointer;font-family:Inter,sans-serif;font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0">Add</button>
+              <button onclick="cancelCustomFieldTest()" style="background:none;border:1.5px solid var(--border-dark);color:var(--text-2);padding:8px 14px;border-radius:var(--radius-md);cursor:pointer;font-family:Inter,sans-serif;font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-bottom:14px">
           <label class="form-label">Evidence Notes</label>
           <div class="textarea-wrap" style="margin-top:6px">
             <textarea id="notes-textarea" data-requires-type placeholder="Describe the evidence condition, where it was found, how it was collected…" style="min-height:120px"></textarea>
@@ -4411,7 +4497,7 @@
           </div>
         </div>
 
-        <div class="ai-prompt-card">
+        <div class="ai-prompt-card" id="ai-writing-guide" style="display:none">
           <div class="ai-prompt-header">
             <span style="font-size:16px">✦</span>
             <span>AI Writing Guide</span>
@@ -4473,7 +4559,7 @@
           <span class="tab-section-title">Packing Material</span>
         </div>
         <select id="packing-material-select" data-requires-type style="width:100%">
-          <option selected>Biohazard Bag</option>
+          <option value="" disabled selected>Select packaging…</option>
           <option>Evidence Bag</option>
           <option>Paper Bag</option>
           <option>Container</option>
@@ -4511,7 +4597,7 @@
       <!-- REQUESTED EXAMS TAB -->
       <div class="tab-panel" id="tab-requestedexams">
         <div class="tab-section-header" style="margin-bottom:12px">
-          <span class="tab-section-title">Examination Requests</span>
+          <span class="tab-section-title">Lab Exams</span>
           <span class="tab-section-sub">Select all that apply</span>
         </div>
 
@@ -4521,7 +4607,7 @@
             <span style="font-size:15px">✦</span>
             AI Recommendations for Blood Sample
           </div>
-          <div style="font-size:12px;color:#3B5FA0;margin-bottom:10px">Based on evidence type — tap to add</div>
+          <div style="font-size:12px;color:#B45309;margin-bottom:10px">Based on evidence type — tap to add</div>
           <div class="ai-rec-chips">
             <button class="ai-rec-chip" data-requires-type onclick="checkExam('Biology – Blood Typing / DNA')">Biology / DNA</button>
             <button class="ai-rec-chip" data-requires-type onclick="checkExam('Fingerprints')">Fingerprints</button>
@@ -4594,10 +4680,24 @@
             </div>
           </label>
           <label class="exam-check-row">
-            <input type="checkbox" class="exam-checkbox" data-requires-type value="Wear / Tyre Impressions">
+            <input type="checkbox" class="exam-checkbox" data-requires-type value="Shoe Impression">
             <div class="exam-check-body">
-              <span class="exam-check-label">Wear / Tyre Impressions</span>
-              <span class="exam-check-desc">Footwear, tyre track comparison</span>
+              <span class="exam-check-label">Shoe Impression</span>
+              <span class="exam-check-desc">Footwear pattern comparison and casting</span>
+            </div>
+          </label>
+          <label class="exam-check-row">
+            <input type="checkbox" class="exam-checkbox" data-requires-type value="Tire Track">
+            <div class="exam-check-body">
+              <span class="exam-check-label">Tire Track</span>
+              <span class="exam-check-desc">Tyre track impression and comparison</span>
+            </div>
+          </label>
+          <label class="exam-check-row">
+            <input type="checkbox" class="exam-checkbox" data-requires-type value="Firearms">
+            <div class="exam-check-body">
+              <span class="exam-check-label">Firearms</span>
+              <span class="exam-check-desc">Ballistics, toolmark, GSR, serial number restoration</span>
             </div>
           </label>
         </div>
@@ -4627,7 +4727,7 @@
             <div>
               <div class="print-label-agency">AGENCY / DEPARTMENT</div>
               <div class="print-label-dept">METRO POLICE DEPARTMENT</div>
-              <div class="print-label-custody">EVIDENCE CHAIN OF CUSTODY</div>
+              <div class="print-label-custody">CHAIN OF CUSTODY</div>
             </div>
             <div class="print-label-qr">
               <svg width="40" height="40" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
@@ -4678,6 +4778,14 @@
           <div class="print-label-field" style="padding:8px 12px">
             <div class="print-label-key">DESCRIPTION</div>
             <div class="print-label-val" style="font-size:10px;line-height:1.4">Blood sample found near the entrance of the building. Sample appears fresh, approximately 2–3 hours old. No contamination visible.</div>
+          </div>
+          <div class="print-label-field" style="padding:6px 12px;border-top:1px solid #e5e7eb">
+            <div class="print-label-key">FOUND BY</div>
+            <div class="print-label-val" id="label-found-by">Guy Nutter</div>
+          </div>
+          <div class="print-label-field" style="padding:6px 12px;border-top:1px solid #e5e7eb">
+            <div class="print-label-key">FIELD TESTS</div>
+            <div class="print-label-val" id="label-field-tests" style="font-size:9px">—</div>
           </div>
           <div class="print-label-grid" style="border-top:1px solid #e5e7eb">
             <div class="print-label-field">
@@ -4758,7 +4866,6 @@
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <span class="badge badge-amber" id="preview-status-badge">In Progress</span>
           <button class="btn btn-outline" id="preview-edit-btn" style="padding:7px 14px;font-size:13px;min-height:36px" onclick="handleEditEvidence()">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit Evidence
@@ -4823,7 +4930,7 @@
         <div class="summary-divider"></div>
 
         <div class="report-section-label">Packaging</div>
-        <div class="report-packaging-text" id="preview-packaging-text">Biohazard Bag · Sealed · Refrigerated</div>
+        <div class="report-packaging-text" id="preview-packaging-text">Evidence Bag · Sealed · Refrigerated</div>
 
         <div class="summary-divider"></div>
 
@@ -4836,7 +4943,7 @@
 
         <div class="summary-divider"></div>
 
-        <div class="report-section-label">Requested Examinations</div>
+        <div class="report-section-label">Lab Examinations</div>
         <div class="report-packaging-text" id="preview-exams-text" style="color:var(--text-2)">Biology (Blood Typing / DNA) · Fingerprints</div>
 
         <div class="summary-divider"></div>
@@ -4850,18 +4957,17 @@
         </div>
       </div>
 
-      <!-- Activity Log -->
+      <!-- Chain of Custody -->
       <div class="summary-card" style="margin-bottom:16px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div class="summary-card-title" style="margin-bottom:0">Activity Log</div>
-          <span class="badge badge-navy" id="coc-count-badge" style="font-size:10px">1 entry</span>
+          <div class="summary-card-title" style="margin-bottom:0">Chain of Custody</div>
         </div>
         <div id="coc-entries">
-          <div class="coc-entry">
-            <div class="coc-dot coc-dot-green"></div>
+          <div class="coc-entry" style="cursor:pointer" onclick="showEvidenceSummary()">
+            <div class="at-avatar" style="background:var(--navy);width:28px;height:28px;font-size:9px;flex-shrink:0;">GN</div>
             <div class="coc-content">
-              <div class="coc-action">Guy Nutter created evidence B123456</div>
-              <div class="coc-meta">Guy Nutter · Badge #4821 · Apr 07, 2026 09:15 AM</div>
+              <div class="coc-action"><strong>Guy Nutter</strong> created evidence B123456</div>
+              <div class="coc-meta">#B123456 · Apr 07, 2026 09:15 AM</div>
             </div>
           </div>
         </div>
@@ -5075,7 +5181,7 @@
           <div style="width:36px;height:36px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
           </div>
-          <span class="modal-title">Sign off to Link Evidence</span>
+          <span class="modal-title">Confirm Evidence Link</span>
         </div>
         <button class="modal-close-btn" onclick="closeLinkSignoffModal()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -5100,26 +5206,41 @@
        LINK EVIDENCE PICKER MODAL
   ================================================================ -->
   <div class="modal-backdrop" id="modal-link-picker" onclick="if(event.target===this)closeLinkPickerModal()">
-    <div class="modal-card" onclick="event.stopPropagation()" style="width:460px">
+    <div class="modal-card" onclick="event.stopPropagation()" style="width:480px">
       <div class="modal-header">
         <div>
           <div style="font-weight:700;font-size:16px;color:var(--text-1);">Link to Evidence</div>
-          <div style="font-size:12px;color:var(--text-2);margin-top:3px;">Select which evidence this item should be a child of</div>
+          <div style="font-size:12px;color:var(--text-2);margin-top:3px;">Select a primary and at least one secondary evidence to link.</div>
         </div>
         <button class="modal-close-btn" onclick="closeLinkPickerModal()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
-      <div class="modal-body" style="padding-top:12px;">
-        <div class="search-input-wrap" style="margin-bottom:12px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="link-picker-search" placeholder="Search by ID or name…" oninput="filterLinkPicker()" style="border:none;outline:none;background:transparent;font-family:Inter,sans-serif;font-size:13px;color:var(--text-1);flex:1;" />
+      <div class="modal-body" style="padding-top:12px;display:flex;flex-direction:column;gap:16px;">
+        <!-- Primary -->
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:6px;">Primary evidence <span style="font-size:12px;font-weight:400;color:var(--text-3);">— Select 1</span></div>
+          <select id="link-primary-select" onchange="validateLinkPicker()" style="width:100%;font-family:Inter,sans-serif;font-size:13px;color:var(--text-1);border:1.5px solid var(--border);border-radius:var(--radius-md);padding:10px 14px;background:#fff;outline:none;-webkit-appearance:none;appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239BA8BE' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;">
+            <option value="">Select primary evidence…</option>
+          </select>
         </div>
-        <div id="link-picker-list" style="display:flex;flex-direction:column;gap:4px;max-height:260px;overflow-y:auto;"></div>
+        <!-- Secondary -->
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:6px;">Secondary evidence <span style="font-size:12px;font-weight:400;color:var(--text-3);">— Select one or more</span></div>
+          <!-- Collapsed dropdown trigger -->
+          <div id="link-secondary-trigger" onclick="toggleLinkSecondaryDropdown()" style="display:flex;align-items:center;justify-content:space-between;width:100%;font-family:Inter,sans-serif;font-size:13px;color:var(--text-2);border:1.5px solid var(--border);border-radius:var(--radius-md);padding:10px 14px;background:#fff;cursor:pointer;user-select:none;">
+            <span id="link-secondary-label">Select secondary evidence…</span>
+            <svg id="link-secondary-chevron" width="12" height="8" viewBox="0 0 12 8" fill="none" style="flex-shrink:0;transition:transform 0.2s"><path d="M1 1l5 5 5-5" stroke="#9BA8BE" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <!-- Expandable checklist -->
+          <div id="link-secondary-dropdown" style="display:none;border:1.5px solid var(--border);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md);max-height:180px;overflow-y:auto;">
+            <div id="link-secondary-list" style="display:flex;flex-direction:column;"></div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-ghost" onclick="closeLinkPickerModal()">Cancel</button>
-        <button class="btn btn-primary" id="link-picker-confirm" disabled style="opacity:0.38;cursor:not-allowed" onclick="confirmLinkage()">Link as Child</button>
+        <button class="btn btn-primary" id="link-picker-confirm" disabled style="opacity:0.38;cursor:not-allowed" onclick="openLinkSignoffFromPicker()">Link Evidence</button>
       </div>
     </div>
   </div>
@@ -5171,7 +5292,7 @@
           <div class="opt-num-badge" style="background:linear-gradient(135deg,#F59E0B,#D97706);">1</div>
           <div>
             <div class="opt-title">Nested Accordion</div>
-            <div class="opt-tagline">Parent card expands to reveal children inline — relationship is structurally embedded.</div>
+            <div class="opt-tagline">Primary card expands to reveal children inline — relationship is structurally embedded.</div>
           </div>
         </div>
 
@@ -5188,20 +5309,20 @@
               <div class="oex-name">Glock 17 Handgun</div>
               <div class="oex-foot">
                 <span style="font-size:11px;color:var(--text-3);">Submitted · 08 Jan</span>
-                <span style="font-size:10px;font-weight:700;background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:10px;">PARENT</span>
+                <span style="font-size:10px;font-weight:700;background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:10px;">PRIMARY</span>
               </div>
             </div>
             <!-- Toggle button -->
             <button class="opt1-toggle-btn" id="opt1-toggle" onclick="toggleOpt1Accordion(this)">
               <span>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-2px;margin-right:5px;"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-                2 child evidences derived from this item
+                2 secondary evidences linked to this item
               </span>
               <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
             </button>
-            <!-- Children wrapper -->
+            <!-- Secondary items wrapper -->
             <div class="opt1-children-wrap" id="opt1-children" style="max-height:300px;">
-              <!-- Child 1: Blood Sample -->
+              <!-- Secondary 1: Blood Sample -->
               <div class="opt1-child-row">
                 <div class="opt1-child-connector"></div>
                 <div class="opt1-child-inner">
@@ -5215,7 +5336,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Child 2: Fingerprints -->
+              <!-- Secondary 2: Fingerprints -->
               <div class="opt1-child-row">
                 <div class="opt1-child-connector"></div>
                 <div class="opt1-child-inner">
@@ -5278,7 +5399,7 @@
           <div class="opt2-group">
             <div class="opt2-parent-row">
               <div class="oex">
-                <span class="opt2-parent-label">PARENT</span>
+                <span class="opt2-parent-label">PRIMARY</span>
                 <div class="oex-top" style="padding-right:52px;">
                   <span class="oex-id">B123455 · Firearm</span>
                   <div class="oex-av">JD</div>
@@ -5372,7 +5493,7 @@
             <div class="opt3-rel-row">
               <button class="opt3-chip opt3-parent-chip">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-                Parent · 2 child evidences
+                Primary · 2 secondary evidences
               </button>
             </div>
           </div>
@@ -5389,7 +5510,7 @@
             </div>
             <div class="opt3-rel-row">
               <button class="opt3-chip opt3-child-chip" onclick="flashOpt3Parent('opt3-gun',this)">
-                ↳ Child of: Glock 17 Handgun
+                ↳ Secondary of: Glock 17 Handgun
               </button>
             </div>
           </div>
@@ -5406,7 +5527,7 @@
             </div>
             <div class="opt3-rel-row">
               <button class="opt3-chip opt3-child-chip" onclick="flashOpt3Parent('opt3-gun',this)">
-                ↳ Child of: Glock 17 Handgun
+                ↳ Secondary of: Glock 17 Handgun
               </button>
             </div>
           </div>
@@ -5436,7 +5557,7 @@
           <div class="opt-edge-icon">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
           </div>
-          <span><strong>Edge cases:</strong> A child with multiple parents shows multiple chips (breadcrumb-style). Cross-case links show case number inline: "↳ Child of: Gun · Case #M123455". Deep ancestry (great-grandparent) uses a chain: "↳ Blood → Gun → Scene". Scales well on tablet as chips wrap to new lines.</span>
+          <span><strong>Edge cases:</strong> A child with multiple parents shows multiple chips (breadcrumb-style). Cross-case links show case number inline: "↳ Secondary of: Gun · Case #M123455". Deep ancestry (great-primary) uses a chain: "↳ Blood → Gun → Scene". Scales well on tablet as chips wrap to new lines.</span>
         </div>
       </div>
 
@@ -5481,8 +5602,8 @@
           <div class="bell-badge">4</div>
           <div class="notif-dropdown" id="ac-notif">
             <div class="notif-dd-header"><span class="notif-dd-title">Notifications</span><button class="notif-dd-clear" onclick="closeNotifDropdown()">Mark all read</button></div>
-            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> added fingerprint evidence to Case M123456</div><div class="notif-dd-time">09:48 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
-            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--success)">F</div><div class="notif-dd-body"><div class="notif-dd-text">Blood Sample <strong>B123456</strong> handed off to Lab</div><div class="notif-dd-time">09:35 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
+            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:var(--blue)">DD</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Dom Dolla</strong> added you to Case <strong>CAR-2026-0047</strong></div><div class="notif-dd-time">09:48 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
+            <div class="notif-dd-item unread"><div class="notif-dd-av" style="background:#7C3AED">SH</div><div class="notif-dd-body"><div class="notif-dd-text"><strong>Sgt. Hayes</strong> assigned you as Lead Officer on <strong>CAR-2026-0031</strong></div><div class="notif-dd-time">09:35 AM · Today</div></div><div class="notif-dd-unread-dot"></div></div>
           </div>
         </div>
         <div class="dash-avatar">GN</div>
@@ -5507,7 +5628,7 @@
       </div>
       <div class="ac-filter-row">
         <button class="ac-filter-chip fc-active" data-filter="All" onclick="setAcFilter('All')">All</button>
-        <button class="ac-filter-chip" data-filter="In Progress" onclick="setAcFilter('In Progress')">In Progress</button>
+        <button class="ac-filter-chip" data-filter="Ongoing" onclick="setAcFilter('Ongoing')">Ongoing</button>
         <button class="ac-filter-chip" data-filter="Handed Off" onclick="setAcFilter('Handed Off')">Handed Off</button>
       </div>
     </div>
@@ -5528,12 +5649,15 @@
       <div class="bottom-pill-nav">
         <button class="nav-pill-btn" title="Home" onclick="showScreen('dashboard')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="nav-label">Home</span>
         </button>
         <button class="nav-pill-btn active" title="Cases" onclick="showScreen('all-cases')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <span class="nav-label">Cases</span>
         </button>
         <button class="nav-pill-btn" title="Profile">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="nav-label">Profile</span>
         </button>
       </div>
       <div class="fab-backdrop" id="ac-fab-backdrop" onclick="closeFab('ac')"></div>
@@ -5577,7 +5701,7 @@
       caseNumber: 'CAR-2026-0047',
       caseIdShort: 'M123456',
       labNumber: 'LAB-2026-007',
-      status: 'In Progress'
+      status: 'Ongoing'
     },
     evidenceDraft: {
       id: 'B123456',
@@ -5587,11 +5711,12 @@
       timeCollected: '09:30',
       notes: '',
       collectionMethod: '',
-      packingMaterial: 'Biohazard Bag',
+      packingMaterial: '',
       packagingState: 'Sealed',
       storageTemperature: 'Refrigerated',
       exams: [],
-      linkedEvidence: []
+      linkedEvidence: [],
+      fieldTests: []
     },
     activityLogs: [],
     task1Unlocked: false
@@ -5659,6 +5784,17 @@
     const timeInput = el('case-time-input');
     if (dateInput) dateInput.value = `${pad2(now.getMonth() + 1)}/${pad2(now.getDate())}/${now.getFullYear()}`;
     if (timeInput) timeInput.value = formatRegionalTimeInput(now);
+    // Auto-add logged-in officer if not already present
+    const chipsWrap = el('officers-chips');
+    if (chipsWrap && !chipsWrap.querySelector(`[data-officer="${APP_STATE.userName}"]`)) {
+      const addBtn = chipsWrap.querySelector('.chip-ghost');
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.dataset.officer = APP_STATE.userName;
+      chip.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;background:var(--navy);color:#fff;font-size:12px;font-weight:500;';
+      chip.innerHTML = `${APP_STATE.userName} <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:14px;line-height:1;color:rgba(255,255,255,0.7);padding:0 0 0 2px">×</button>`;
+      chipsWrap.insertBefore(chip, addBtn || null);
+    }
   }
 
   function syncRegionalUI() {
@@ -5677,9 +5813,9 @@
   }
 
   function getEvidenceWorkflowStatus() {
-    return labelSigned
-      ? { text: 'Signed Off', className: 'badge-green' }
-      : { text: 'In Progress', className: 'badge-amber' };
+    return isSubmitted
+      ? { text: 'Sent for Approval', className: 'badge-green' }
+      : { text: 'Draft', className: 'badge-amber' };
   }
 
   function formatTimeLabel(value) {
@@ -5693,12 +5829,17 @@
   }
 
   function recordActivity(text, actorName, actorInitials, color, metaOverride) {
+    const name = actorName || APP_STATE.userName;
+    const timeLabel = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    const dateLabel = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+    const evidenceId = APP_STATE.evidenceDraft && APP_STATE.evidenceDraft.id ? `#${APP_STATE.evidenceDraft.id}` : '';
     APP_STATE.activityLogs.unshift({
       text,
-      actorName: actorName || APP_STATE.userName,
+      actorName: name,
       actorInitials: actorInitials || APP_STATE.userInitials,
       color: color || USER_COLOR,
-      meta: metaOverride || `${actorName || APP_STATE.userName} · ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`
+      meta: metaOverride || `${evidenceId ? evidenceId + ' · ' : ''}${dateLabel} ${timeLabel}`,
+      isNew: true
     });
     renderActivityFeeds();
   }
@@ -5707,36 +5848,39 @@
     const timeline = el('cs-activity-timeline');
     if (timeline) {
       timeline.innerHTML = APP_STATE.activityLogs.map((entry, index) => `
-        <div class="at-item">
+        <div class="at-item${entry.isNew ? ' at-item-new' : ''}" id="at-item-${index}" style="cursor:pointer" onclick="markActivityRead(${index})">
           <div class="at-left">
             <div class="at-avatar" style="background:${entry.color}">${entry.actorInitials}</div>
             ${index < APP_STATE.activityLogs.length - 1 ? '<div class="at-line"></div>' : ''}
           </div>
           <div class="at-body">
-            <div class="at-action">${entry.text}</div>
+            <div class="at-action"><strong>${entry.actorName}</strong> ${entry.text}</div>
             <div class="at-meta">${entry.meta}</div>
           </div>
+          ${entry.isNew ? '<div class="at-unread-dot" style="width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>' : ''}
         </div>`).join('');
       setText('cs-at-badge', String(APP_STATE.activityLogs.length));
+      setText('cs-at-badge-2', String(APP_STATE.activityLogs.length));
     }
 
     const emptyLog = el('cs-empty-activity');
     if (emptyLog && APP_STATE.activityLogs.length) {
       const latest = APP_STATE.activityLogs[0];
-      emptyLog.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div style="text-align:center">${latest.text}</div><div style="font-size:11px;color:var(--text-3)">${latest.meta}</div>`;
+      emptyLog.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div style="text-align:center"><strong>${latest.actorName}</strong> ${latest.text}</div><div style="font-size:11px;color:var(--text-3)">${latest.meta}</div>`;
     }
 
     const coc = el('coc-entries');
     if (coc) {
-      coc.innerHTML = APP_STATE.activityLogs.map(entry => `
-        <div class="coc-entry">
-          <div class="coc-dot ${entry.color === PARTNER_COLOR ? 'coc-dot-blue' : 'coc-dot-green'}"></div>
+      coc.innerHTML = APP_STATE.activityLogs.map((entry, index) => `
+        <div class="coc-entry${entry.isNew ? ' coc-entry-new' : ''}" id="coc-entry-${index}" style="cursor:pointer" onclick="markCocRead(${index})">
+          <div class="at-avatar" style="background:${entry.color};width:28px;height:28px;font-size:9px;flex-shrink:0;">${entry.actorInitials}</div>
           <div class="coc-content">
-            <div class="coc-action">${entry.text}</div>
+            <div class="coc-action"><strong>${entry.actorName}</strong> ${entry.text}</div>
             <div class="coc-meta">${entry.meta}</div>
           </div>
+          ${entry.isNew ? '<div class="coc-unread-dot" style="width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>' : ''}
         </div>`).join('');
-      setText('coc-count-badge', `${APP_STATE.activityLogs.length} entr${APP_STATE.activityLogs.length === 1 ? 'y' : 'ies'}`);
+      // coc-count-badge removed from preview
     }
   }
 
@@ -5780,6 +5924,61 @@
     APP_STATE.evidenceDraft.storageTemperature = activeTemp ? activeTemp.textContent.trim() : APP_STATE.evidenceDraft.storageTemperature;
     APP_STATE.evidenceDraft.exams = [...document.querySelectorAll('.exam-checkbox:checked')].map(cb => cb.value);
     APP_STATE.evidenceDraft.linkedEvidence = [...document.querySelectorAll('#linked-evidence-chips .linked-ev-chip')].map(c => c.dataset.val);
+    APP_STATE.evidenceDraft.fieldTests = [...document.querySelectorAll('#field-test-chips .chip-ghost')].map(c => c.dataset.val);
+  }
+
+  function onFoundByChange(select) {
+    const customInput = el('found-by-input');
+    if (!customInput) return;
+    if (select.value === 'Other') {
+      customInput.style.display = '';
+      customInput.value = '';
+      customInput.focus();
+    } else {
+      customInput.style.display = 'none';
+    }
+  }
+
+  function getFoundByValue() {
+    const sel = el('found-by-select');
+    const inp = el('found-by-input');
+    if (sel && sel.value === 'Other') return (inp ? inp.value.trim() : '') || '';
+    return sel ? sel.value : (inp ? inp.value : APP_STATE.userName);
+  }
+
+  function addFieldTest(selectEl) {
+    const val = selectEl.value;
+    if (!val) return;
+    if (val === 'Other') {
+      selectEl.value = '';
+      const wrap = el('field-test-other-wrap');
+      if (wrap) { wrap.style.display = 'flex'; setTimeout(() => el('field-test-other-input') && el('field-test-other-input').focus(), 60); }
+      return;
+    }
+    const chips = el('field-test-chips');
+    if (!chips) return;
+    if ([...chips.querySelectorAll('.chip-ghost')].some(c => c.dataset.val === val)) { selectEl.value = ''; return; }
+    chips.insertAdjacentHTML('beforeend', `<span class="chip-ghost" data-val="${val}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;border:1.5px solid var(--text-3);font-size:12px;cursor:default">${val}<button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:14px;line-height:1;color:var(--text-3);padding:0 0 0 2px">×</button></span>`);
+    selectEl.value = '';
+  }
+
+  function addCustomFieldTest() {
+    const input = el('field-test-other-input');
+    if (!input) return;
+    const v = input.value.trim();
+    if (!v) return;
+    const chips = el('field-test-chips');
+    if (chips && ![...chips.querySelectorAll('.chip-ghost')].some(c => c.dataset.val === v)) {
+      chips.insertAdjacentHTML('beforeend', `<span class="chip-ghost" data-val="${v}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;border:1.5px solid var(--text-3);font-size:12px;cursor:default">${v}<button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:14px;line-height:1;color:var(--text-3);padding:0 0 0 2px">×</button></span>`);
+    }
+    cancelCustomFieldTest();
+  }
+
+  function cancelCustomFieldTest() {
+    const wrap = el('field-test-other-wrap');
+    const input = el('field-test-other-input');
+    if (input) input.value = '';
+    if (wrap) wrap.style.display = 'none';
   }
 
   function populateEvidenceForm() {
@@ -5787,10 +5986,27 @@
     if (el('evidence-type-select')) el('evidence-type-select').value = draft.type || '';
     if (el('evidence-name-input')) el('evidence-name-input').value = draft.name || '';
     if (el('evidence-location-input')) el('evidence-location-input').value = draft.locationFound || '';
-    if (el('evidence-time-input')) el('evidence-time-input').value = draft.timeCollected || '09:30';
+    if (el('evidence-time-input')) {
+      if (!draft.timeCollected) {
+        const now = getRegionalNow();
+        draft.timeCollected = formatRegionalTimeInput(now);
+      }
+      el('evidence-time-input').value = draft.timeCollected;
+    }
+    // Set Found By default to logged-in officer
+    if (el('found-by-select') && !el('found-by-select').dataset.touched) {
+      // check if current user is in the list
+      const opts = [...el('found-by-select').options].map(o => o.value);
+      if (opts.includes(APP_STATE.userName)) {
+        el('found-by-select').value = APP_STATE.userName;
+      } else {
+        el('found-by-select').value = 'Other';
+        if (el('found-by-input')) { el('found-by-input').style.display = ''; el('found-by-input').value = APP_STATE.userName; }
+      }
+    }
     if (el('notes-textarea')) el('notes-textarea').value = draft.notes || '';
     if (el('collection-method-select')) el('collection-method-select').value = draft.collectionMethod || '';
-    if (el('packing-material-select')) el('packing-material-select').value = draft.packingMaterial || 'Biohazard Bag';
+    if (el('packing-material-select')) el('packing-material-select').value = draft.packingMaterial || '';
     if (el('packaging-state-select')) el('packaging-state-select').value = draft.packagingState || 'Sealed';
     document.querySelectorAll('.temp-pills .temp-pill').forEach(btn => {
       btn.classList.toggle('active', btn.textContent.trim() === (draft.storageTemperature || 'Refrigerated'));
@@ -5798,6 +6014,13 @@
     document.querySelectorAll('.exam-checkbox').forEach(cb => {
       cb.checked = draft.exams.includes(cb.value);
     });
+    const ftChips = el('field-test-chips');
+    if (ftChips) {
+      ftChips.innerHTML = '';
+      (draft.fieldTests || []).forEach(val => {
+        ftChips.insertAdjacentHTML('beforeend', `<span class="chip-ghost" data-val="${val}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;border:1.5px solid var(--text-3);font-size:12px;cursor:default">${val}<button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;font-size:14px;line-height:1;color:var(--text-3);padding:0 0 0 2px">×</button></span>`);
+      });
+    }
     const chips = el('linked-evidence-chips');
     if (chips) chips.innerHTML = '';
     draft.linkedEvidence.forEach(val => selectLinkedEvidence(val));
@@ -5821,11 +6044,10 @@
     setText('preview-notes-text', draft.notes || 'No notes added yet.');
     setText('preview-packaging-text', [draft.packingMaterial || 'Packaging not set', draft.packagingState || 'State not set', draft.storageTemperature || 'Temperature not set'].join(' · '));
     setText('preview-exams-text', draft.exams.length ? draft.exams.join(' · ') : 'No examinations requested');
-    const previewStatusBadge = el('preview-status-badge');
-    if (previewStatusBadge) {
-      previewStatusBadge.textContent = workflowStatus.text;
-      previewStatusBadge.className = `badge ${workflowStatus.className}`;
-    }
+    // Sync print label fields
+    const foundByVal = getFoundByValue() || APP_STATE.userName;
+    setText('label-found-by', foundByVal);
+    setText('label-field-tests', (draft.fieldTests && draft.fieldTests.length) ? draft.fieldTests.join(', ') : '—');
   }
 
   function applyDraftLinkageToCaseSummary() {
@@ -5890,6 +6112,19 @@
     // Special case for evidence tabs
     if (id === 'evidence') {
       populateEvidenceForm();
+      // Wire AI Writing Guide to notes textarea focus/blur
+      setTimeout(() => {
+        const ta = el('notes-textarea');
+        const guide = el('ai-writing-guide');
+        if (ta && guide) {
+          ta.addEventListener('focus', function() {
+            guide.style.display = '';
+            guide.style.animation = 'none';
+            requestAnimationFrame(() => { guide.style.animation = ''; });
+          }, { once: false });
+          ta.addEventListener('blur', function() { guide.style.display = 'none'; }, { once: false });
+        }
+      }, 50);
     }
 
     if (id === 'new-case') {
@@ -6088,17 +6323,17 @@
     unlockTask1Evidence();
     isSubmitted = true;
     if (isFirstSubmit) {
-      recordActivity('Fingerprint Card added', 'Dom Dolla', 'DD', PARTNER_COLOR);
-      recordActivity('Glass Fragments added', 'Dom Dolla', 'DD', PARTNER_COLOR);
-      recordActivity(`${getEvidenceDisplayName(APP_STATE.evidenceDraft)} added`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
+      recordActivity('added fingerprint card', 'Dom Dolla', 'DD', PARTNER_COLOR);
+      recordActivity('added glass fragments', 'Dom Dolla', 'DD', PARTNER_COLOR);
+      recordActivity(`added ${getEvidenceDisplayName(APP_STATE.evidenceDraft)}`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
     }
-    recordActivity(`${getEvidenceDisplayName(APP_STATE.evidenceDraft)} submitted`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
+    recordActivity(`submitted ${getEvidenceDisplayName(APP_STATE.evidenceDraft)} to lab`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
 
     // Update preview badge and status
     const reportBadge = document.getElementById('preview-report-badge');
-    if (reportBadge) { reportBadge.textContent = 'SUBMITTED'; reportBadge.className = 'badge badge-green'; }
+    if (reportBadge) { reportBadge.textContent = 'SENT FOR APPROVAL'; reportBadge.className = 'badge badge-green'; }
     const statusBadge = document.getElementById('preview-status-badge');
-    if (statusBadge) { statusBadge.textContent = 'Submitted'; statusBadge.className = 'badge badge-green'; }
+    if (statusBadge) { statusBadge.textContent = 'Sent for Approval'; statusBadge.className = 'badge badge-green'; }
 
     showScreen('case-summary-added');
     const toast = document.getElementById('success-toast');
@@ -6185,7 +6420,7 @@
         type: 'Glass Fragments',
         name: 'Glass Fragments',
         meta: '09:18 AM · Entryway floor',
-        status: 'In Progress',
+        status: 'Draft',
         statusClass: 'badge-amber',
         officer: 'DD',
         parentId: null
@@ -6195,7 +6430,7 @@
         type: 'Fingerprint Card',
         name: 'Fingerprint Card',
         meta: '09:24 AM · Found on glass fragments',
-        status: 'In Progress',
+        status: 'Draft',
         statusClass: 'badge-amber',
         officer: 'DD',
         parentId: null
@@ -6245,7 +6480,7 @@
     const rm = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/><line x1="2" y1="2" x2="22" y2="22"/></svg>`;
     const ed = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
     return `
-      <button class="ev-more-item" onclick="openLinkSignoffModal('${key}')">${lk} Link to Another Evidence</button>
+      <button class="ev-more-item" onclick="openLinkPickerForKey('${key}')">${lk} Link to Evidence</button>
       ${isLinked ? `<button class="ev-more-item ev-more-destructive" onclick="removeLinkage('${key}')">${rm} Remove Linkage</button>` : ''}
       <div class="ev-more-divider"></div>
       <button class="ev-more-item" onclick="showEvidenceSummary(); closeEvMore()">${ed} Edit Evidence</button>`;
@@ -6261,7 +6496,7 @@
         <div class="evidence-card-top">
           <span class="evidence-id">${item.id} · ${item.type}</span>
           <div style="display:flex;align-items:center;gap:4px" onclick="event.stopPropagation()">
-            <span style="font-size:9px;font-weight:700;background:#FEF3C7;color:#92400E;padding:2px 7px;border-radius:10px;letter-spacing:0.04em;flex-shrink:0;">PARENT</span>
+            <span style="font-size:9px;font-weight:700;background:#EDE9FE;color:#5B21B6;padding:2px 7px;border-radius:10px;letter-spacing:0.04em;flex-shrink:0;border:1px solid #C4B5FD;">PRIMARY</span>
             <div class="ev-more-wrap">
               <button class="ev-more-btn" onclick="openEvMore('ev-more-${key}',event)" title="More options">•••</button>
               <div class="ev-more-menu" id="ev-more-${key}">${_moreMenuInner(key, false)}</div>
@@ -6278,7 +6513,7 @@
       <button class="ev-acc-toggle" id="cs-ev-toggle-${key}" onclick="toggleEvAccordion('cs-ev-children-${key}',this)">
         <span class="ev-acc-toggle-left">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-          ${n} child ${n === 1 ? 'evidence' : 'evidences'} derived from this item
+          ${n} secondary ${n === 1 ? 'evidence' : 'evidences'} linked to this item
         </span>
         <svg class="ev-acc-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </button>
@@ -6292,9 +6527,12 @@
     return `
       <div class="ev-acc-child-row" style="cursor:pointer" onclick="showEvidenceSummary()">
         <div class="ev-acc-child-gutter"></div>
-        <div class="ev-acc-child-content" onclick="event.stopPropagation()">
+        <div class="ev-acc-child-content">
           <div class="ev-acc-child-top">
-            <span class="ev-acc-child-id">${item.id} · ${item.type}</span>
+            <div style="display:flex;align-items:center;gap:5px">
+              <span class="ev-acc-child-id">${item.id} · ${item.type}</span>
+              <span style="font-size:8px;font-weight:700;background:#CCFBF1;color:#0F766E;padding:1px 6px;border-radius:8px;letter-spacing:0.04em;border:1px solid #5EEAD4;flex-shrink:0;">SECONDARY</span>
+            </div>
             <div class="ev-more-wrap" onclick="event.stopPropagation()">
               <button class="ev-more-btn" onclick="openEvMore('ev-more-${key}',event)" title="More options">•••</button>
               <div class="ev-more-menu" id="ev-more-${key}">${_moreMenuInner(key, true)}</div>
@@ -6339,24 +6577,39 @@
     const parentName = (CS_EVIDENCE.items[item.parentId] || {}).name || 'linked evidence';
     item.parentId = null;
     renderCsEvidence();
-    recordActivity(`${item.name} unlinked from ${parentName}`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
+    recordActivity(`unlinked ${item.name} from ${parentName}`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
   }
 
   // ================================================================
   // LINK PICKER MODAL
   // ================================================================
+  function openLinkPickerForKey(key) {
+    _pendingLinkEvKey = key;
+    closeEvMore();
+    openLinkPickerModal();
+  }
+
   function afterLinkAuth() {
     closeLinkSignoffModal();
-    setTimeout(openLinkPickerModal, 220);
+    setTimeout(confirmLinkage, 220);
   }
+
+  let _linkSecondarySelected = new Set();
 
   function openLinkPickerModal() {
     _linkPickerSelected = null;
+    _linkSecondarySelected = new Set();
     const btn = document.getElementById('link-picker-confirm');
     if (btn) { btn.disabled = true; btn.style.opacity = '0.38'; btn.style.cursor = 'not-allowed'; }
-    const inp = document.getElementById('link-picker-search');
-    if (inp) inp.value = '';
-    _renderLinkPickerList('');
+    // Reset secondary dropdown to closed state
+    const dd = document.getElementById('link-secondary-dropdown');
+    const chevron = document.getElementById('link-secondary-chevron');
+    const trigger = document.getElementById('link-secondary-trigger');
+    if (dd) dd.style.display = 'none';
+    if (chevron) chevron.style.transform = '';
+    if (trigger) trigger.style.borderRadius = 'var(--radius-md)';
+    _renderLinkPickerPrimary();
+    _renderLinkPickerSecondary();
     document.getElementById('modal-link-picker').classList.add('open');
   }
 
@@ -6366,63 +6619,110 @@
     setTimeout(() => { bd.classList.remove('open'); delete bd.dataset.closing; }, 200);
   }
 
-  function filterLinkPicker() {
-    const q = (document.getElementById('link-picker-search').value || '').toLowerCase();
-    _renderLinkPickerList(q);
+  function _renderLinkPickerPrimary() {
+    const sel = document.getElementById('link-primary-select');
+    if (!sel) return;
+    const items = CS_EVIDENCE.items;
+    const allKeys = Object.keys(items);
+    // All evidence available as primary (including current item)
+    sel.innerHTML = '<option value="">Select primary evidence…</option>' +
+      allKeys.map(k => `<option value="${k}">${items[k].name} (${items[k].id})</option>`).join('');
+    sel.value = _linkPickerSelected || '';
   }
 
-  function _renderLinkPickerList(query) {
-    const list = document.getElementById('link-picker-list');
+  function toggleLinkSecondaryDropdown() {
+    const dropdown = document.getElementById('link-secondary-dropdown');
+    const chevron = document.getElementById('link-secondary-chevron');
+    const trigger = document.getElementById('link-secondary-trigger');
+    if (!dropdown) return;
+    const isOpen = dropdown.style.display !== 'none';
+    dropdown.style.display = isOpen ? 'none' : 'block';
+    if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+    if (trigger) {
+      trigger.style.borderRadius = isOpen ? 'var(--radius-md)' : 'var(--radius-md) var(--radius-md) 0 0';
+    }
+  }
+
+  function _renderLinkPickerSecondary() {
+    const list = document.getElementById('link-secondary-list');
     if (!list) return;
     const items = CS_EVIDENCE.items;
     const allKeys = Object.keys(items);
-    // Only show items that aren't already children themselves (keep hierarchy flat, max 2 levels)
-    // and aren't the item being linked
-    const excluded = new Set([_pendingLinkEvKey]);
-    allKeys.forEach(k => { if (items[k].parentId === _pendingLinkEvKey) excluded.add(k); });
-    const candidates = allKeys.filter(k => {
-      if (excluded.has(k)) return false;
-      if (items[k].parentId !== null) return false; // skip existing children — they can't be parents in the picker
-      if (!query) return true;
-      return items[k].name.toLowerCase().includes(query) || items[k].id.toLowerCase().includes(query);
-    });
+    // Secondary candidates: all items except the one selected as primary
+    const candidates = allKeys.filter(k => k !== _linkPickerSelected);
+    let html = '';
     if (candidates.length === 0) {
-      list.innerHTML = '<div style="text-align:center;padding:24px 0;color:var(--text-3);font-size:13px;">No evidence available</div>';
-      return;
+      html = '<div style="padding:10px 12px;font-size:12px;color:var(--text-3)">No evidences available to link as secondary</div>';
+    } else {
+      html = candidates.map(k => {
+        const it = items[k];
+        const checked = _linkSecondarySelected.has(k);
+        const isCurrentItem = k === _pendingLinkEvKey;
+        return `<label style="display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border)" onclick="toggleLinkSecondary('${k}',event)">
+          <input type="checkbox" ${checked ? 'checked' : ''} style="width:15px;height:15px;accent-color:var(--navy);pointer-events:none;" />
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:600;color:var(--text-1)">${it.name}${isCurrentItem ? ' <span style="font-size:10px;color:var(--text-3);font-weight:400">(this evidence)</span>' : ''}</div>
+            <div style="font-size:11px;color:var(--text-3)">${it.id} · ${it.type} · ${it.status}</div>
+          </div>
+        </label>`;
+      }).join('');
     }
-    list.innerHTML = candidates.map(k => {
-      const it = items[k];
-      const sel = _linkPickerSelected === k;
-      const dotBorder = sel ? 'var(--blue)' : 'var(--border)';
-      const dotBg = sel ? 'var(--blue)' : 'transparent';
-      const check = sel ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '';
-      return `<div class="link-picker-row ${sel ? 'link-picker-selected' : ''}" onclick="selectLinkTarget('${k}')">
-        <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:600;color:var(--text-1)">${it.name}</div>
-          <div style="font-size:11px;color:var(--text-3);margin-top:1px">${it.id} · ${it.type} · ${it.status}</div>
-        </div>
-        <div style="width:20px;height:20px;border-radius:50%;border:2px solid ${dotBorder};background:${dotBg};display:flex;align-items:center;justify-content:center;flex-shrink:0;">${check}</div>
-      </div>`;
-    }).join('');
+    list.innerHTML = html;
+    // Update label text on trigger
+    const totalSelected = _linkSecondarySelected.size;
+    const labelEl = document.getElementById('link-secondary-label');
+    if (labelEl) {
+      labelEl.textContent = totalSelected > 0
+        ? `${totalSelected} selected`
+        : 'Select secondary evidence…';
+    }
   }
 
-  function selectLinkTarget(key) {
-    _linkPickerSelected = key;
+  function validateLinkPicker() {
+    const sel = document.getElementById('link-primary-select');
+    _linkPickerSelected = sel ? sel.value : null;
+    // If this item was previously selected as secondary, remove it — no evidence can appear in both
+    if (_linkPickerSelected) _linkSecondarySelected.delete(_linkPickerSelected);
+    _renderLinkPickerSecondary();
     const btn = document.getElementById('link-picker-confirm');
-    if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
-    _renderLinkPickerList((document.getElementById('link-picker-search') || {}).value || '');
+    const valid = !!_linkPickerSelected;
+    if (btn) { btn.disabled = !valid; btn.style.opacity = valid ? '1' : '0.38'; btn.style.cursor = valid ? 'pointer' : 'not-allowed'; }
+  }
+
+  function toggleLinkSecondary(key, event) {
+    event && event.preventDefault();
+    if (_linkSecondarySelected.has(key)) { _linkSecondarySelected.delete(key); } else { _linkSecondarySelected.add(key); }
+    _renderLinkPickerSecondary();
   }
 
   function confirmLinkage() {
     if (!_pendingLinkEvKey || !_linkPickerSelected) return;
-    CS_EVIDENCE.items[_pendingLinkEvKey].parentId = _linkPickerSelected;
-    closeLinkPickerModal();
+    const items = CS_EVIDENCE.items;
+    const parent = items[_linkPickerSelected];
+    // Determine all secondaries: the pending item + any additional selected
+    const secondaryKeys = [_pendingLinkEvKey, ..._linkSecondarySelected].filter((k, i, arr) => arr.indexOf(k) === i);
+    secondaryKeys.forEach(sk => {
+      const child = items[sk];
+      if (!child) return;
+      child.parentId = _linkPickerSelected;
+      // Count existing siblings (excluding this one)
+      const siblings = Object.values(items).filter(it => it.parentId === _linkPickerSelected && it !== child);
+      const suffix = String.fromCharCode(65 + siblings.length);
+      child.id = `${parent.id}-${suffix}`;
+    });
     renderCsEvidence();
-    recordActivity(`${CS_EVIDENCE.items[_pendingLinkEvKey].name} linked to ${CS_EVIDENCE.items[_linkPickerSelected].name}`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
+    const linkedNames = secondaryKeys.map(k => items[k] && items[k].name).filter(Boolean).join(', ');
+    recordActivity(`linked ${linkedNames} to ${parent.name} (Primary)`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
+  }
+
+  function openLinkSignoffFromPicker() {
+    if (!_linkPickerSelected) return;
+    closeLinkPickerModal();
+    setTimeout(() => openLinkSignoffModal(null), 220);
   }
 
   function openLinkSignoffModal(evKey) {
-    _pendingLinkEvKey = evKey || null;
+    if (evKey !== null) _pendingLinkEvKey = evKey || null;
     closeEvMore();
     const faceBtn = document.getElementById('link-signoff-faceid-btn');
     const confirmBtn = document.getElementById('link-signoff-confirm-btn');
@@ -6640,8 +6940,30 @@
 
   function proceedToEdit() {
     closeEditAuthModal();
-    recordActivity(`${getEvidenceDisplayName(APP_STATE.evidenceDraft)} reopened for editing`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
+    recordActivity(`reopened ${getEvidenceDisplayName(APP_STATE.evidenceDraft)} for editing`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
     showScreen('evidence'); switchTab('description');
+  }
+
+  function markActivityRead(index) {
+    if (APP_STATE.activityLogs[index]) APP_STATE.activityLogs[index].isNew = false;
+    const item = document.getElementById('at-item-' + index);
+    if (item) {
+      item.classList.remove('at-item-new');
+      const dot = item.querySelector('.at-unread-dot');
+      if (dot) dot.remove();
+    }
+    showEvidenceSummary();
+  }
+
+  function markCocRead(index) {
+    if (APP_STATE.activityLogs[index]) APP_STATE.activityLogs[index].isNew = false;
+    const item = document.getElementById('coc-entry-' + index);
+    if (item) {
+      item.classList.remove('coc-entry-new');
+      const dot = item.querySelector('.coc-unread-dot');
+      if (dot) dot.remove();
+    }
+    showEvidenceSummary();
   }
 
   function addCsActivityEntry(text, initials, bgColor) {
@@ -7060,7 +7382,7 @@
       caseNumber: (el('case-number-input') || {}).value || 'CAR-2026-0047',
       caseIdShort: (el('case-number-input') || {}).value || 'CAR-2026-0047',
       labNumber: (el('lab-number-input') || {}).value || 'LAB-2026-007',
-      status: 'In Progress'
+      status: 'Ongoing'
     };
     APP_STATE.evidenceDraft = {
       id: 'B123456',
@@ -7070,7 +7392,7 @@
       timeCollected: '09:30',
       notes: '',
       collectionMethod: '',
-      packingMaterial: 'Biohazard Bag',
+      packingMaterial: '',
       packagingState: 'Sealed',
       storageTemperature: 'Refrigerated',
       exams: [],
@@ -7111,7 +7433,7 @@
       <div class="case-card-num">#${APP_STATE.currentCase.caseIdShort}</div>
       <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: Today, ${APP_STATE.currentCase.time}</div>
       <div class="case-card-foot">
-        <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">In Progress</span>
+        <span class="badge badge-amber" style="font-size:11px;padding:4px 12px;border-radius:20px">Ongoing</span>
         <div class="case-card-avs">
           <div class="case-card-av av-1">${APP_STATE.userInitials}</div>
         </div>
@@ -7126,7 +7448,7 @@
 
     // Update case count badge
     syncCaseDisplays();
-    recordActivity(`Case created: ${APP_STATE.currentCase.name}`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR, `${APP_STATE.userName} · ${APP_STATE.currentCase.time}`);
+    recordActivity(`created case ${APP_STATE.currentCase.caseIdShort}`, APP_STATE.userName, APP_STATE.userInitials, USER_COLOR);
 
     // Navigate to the case summary (empty state since no evidence yet)
     showScreen('case-summary-empty');
@@ -7252,9 +7574,9 @@
   // ALL CASES PAGE
   // ================================================================
   const CASES_DATA = [
-    { id:'CAR-2026-0041', name:'Oakland Homicide Investigation', type:'Homicide',               status:'In Progress', statusClass:'badge-amber',  officer:'Guy Nutter',  initials:'GN', lastOpened:'Apr 08, 5:40 PM',   evidence:3, color:'#D97706' },
-    { id:'CAR-2026-0038', name:'Harbor Homicide Case',          type:'Homicide Investigation', status:'In Progress', statusClass:'badge-amber',  officer:'Sarah Kim',    initials:'SK', lastOpened:'Today, 8:15 AM',   evidence:8, color:'#2563EB' },
-    { id:'CAR-2026-0035', name:'Westside Drug Trafficking',     type:'Drug Trafficking',       status:'In Progress', statusClass:'badge-amber',  officer:'Dom Dolla',    initials:'DD', lastOpened:'Yesterday, 3:50 PM', evidence:5, color:'#7C3AED' },
+    { id:'CAR-2026-0041', name:'Oakland Homicide Investigation', type:'Homicide',               status:'Ongoing', statusClass:'badge-amber',  officer:'Guy Nutter',  initials:'GN', lastOpened:'Apr 08, 5:40 PM',   evidence:3, color:'#D97706' },
+    { id:'CAR-2026-0038', name:'Harbor Homicide Case',          type:'Homicide Investigation', status:'Ongoing', statusClass:'badge-amber',  officer:'Sarah Kim',    initials:'SK', lastOpened:'Today, 8:15 AM',   evidence:8, color:'#2563EB' },
+    { id:'CAR-2026-0035', name:'Westside Drug Trafficking',     type:'Drug Trafficking',       status:'Ongoing', statusClass:'badge-amber',  officer:'Dom Dolla',    initials:'DD', lastOpened:'Yesterday, 3:50 PM', evidence:5, color:'#7C3AED' },
     { id:'CAR-2026-0029', name:'Riverside Auto Theft',          type:'Vehicle Theft',          status:'Handed Off',  statusClass:'badge-green',  officer:'Mike Reeves',  initials:'MR', lastOpened:'Mar 8, 11:20 AM',  evidence:2, color:'#059669' },
     { id:'CAR-2026-0024', name:'Downtown Assault',              type:'Assault',                status:'Handed Off',  statusClass:'badge-green',  officer:'Jessica Park', initials:'JP', lastOpened:'Mar 2, 4:05 PM',   evidence:4, color:'#DC2626' },
     { id:'CAR-2026-0019', name:'Financial Fraud Investigation', type:'Fraud Investigation',    status:'Handed Off',  statusClass:'badge-green',  officer:'Tom Bradley',  initials:'TB', lastOpened:'Feb 20, 9:00 AM',  evidence:6, color:'#0D9488' }
@@ -7347,6 +7669,7 @@
         <div class="case-card-title">${c.name}</div>
         <div class="case-card-num">#${c.id}</div>
         <div style="font-size:10px;color:var(--text-3);margin-bottom:10px;">Last opened: ${c.lastOpened}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-bottom:10px;">Evidence (${c.evidence})</div>
         <div class="case-card-foot">
           <span class="badge ${c.statusClass}" style="font-size:11px;padding:4px 10px;border-radius:20px">${c.status}</span>
           <div class="case-card-avs">
@@ -7367,10 +7690,39 @@
       row.onclick = () => showScreen('case-summary-added');
       row.innerHTML = `
         <div class="ac-list-icon" style="background:${c.color}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
-        <div class="ac-list-body"><div class="ac-list-id">${c.name}</div><div class="ac-list-sub">#${c.id} · ${c.officer} · Last opened: ${c.lastOpened}</div></div>
+        <div class="ac-list-body"><div class="ac-list-id">${c.name}</div><div class="ac-list-sub">#${c.id} · ${c.officer} · Evidence (${c.evidence}) · Last opened: ${c.lastOpened}</div></div>
         <div class="ac-list-right"><span class="badge ${c.statusClass}" style="font-size:10px">${c.status}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>`;
       list.appendChild(row);
     });
+  }
+
+  // ================================================================
+  // EXPORT
+  // ================================================================
+  function exportCaseReport() {
+    const c = APP_STATE.currentCase;
+    const evItems = Object.values(CS_EVIDENCE.items);
+    const lines = [
+      `CASE REPORT — ${c.name}`,
+      `Case #: ${c.caseId || c.caseIdShort || 'M123456'}`,
+      `Status: ${c.status || 'Ongoing'}`,
+      `Date: ${c.date || '04/07/2026'}`,
+      `Location: ${c.location || 'Crime Scene, Oakland, CA'}`,
+      `Lead Officer: ${APP_STATE.userName}`,
+      ``,
+      `EVIDENCE (${evItems.length})`,
+      ...evItems.map(ev => `  · ${ev.id} — ${ev.name} [${ev.status}] ${ev.parentId ? `(Secondary ID, linked to ${CS_EVIDENCE.items[ev.parentId]?.id || ev.parentId})` : ''}`),
+      ``,
+      `CHAIN OF CUSTODY`,
+      ...APP_STATE.activityLogs.map(log => `  ${log.time || ''} · ${log.text || log.action || ''} — ${log.officer || ''}`)
+    ];
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Case_${(c.caseIdShort || 'M123456').replace(/[^a-zA-Z0-9]/g,'-')}_Report.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   // ================================================================
