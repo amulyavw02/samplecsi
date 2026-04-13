@@ -265,20 +265,64 @@
   .chip-ghost:hover { border-color: var(--blue); color: var(--blue); }
   .officer-add-input {
     display: none;
+    flex-direction: column;
     gap: 6px;
-    align-items: center;
+    margin-top: 6px;
   }
   .officer-add-input.show { display: flex; }
+  .officer-search-row { display: flex; align-items: center; gap: 8px; position: relative; }
+  .officer-search-wrap { position: relative; flex: 1; }
   .officer-add-input input {
-    width: 140px;
-    padding: 6px 10px;
+    width: 100%;
+    padding: 8px 12px;
     font-size: 13px;
-    border-radius: 20px;
+    border-radius: var(--radius-md);
     min-height: unset;
+    box-sizing: border-box;
   }
+  .officer-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    z-index: 60;
+    overflow: hidden;
+    max-height: 210px;
+    overflow-y: auto;
+  }
+  .officer-dd-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-1);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  .officer-dd-option:last-child { border-bottom: none; }
+  .officer-dd-option:hover { background: var(--bg); }
+  .officer-dd-option.already-added { opacity: 0.4; pointer-events: none; }
+  .officer-dd-av {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .officer-dd-empty { padding: 10px 12px; font-size: 12px; color: var(--text-3); text-align: center; }
   .officer-add-input button {
     font-size: 12px;
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     background: var(--navy);
     color: #fff;
@@ -3711,9 +3755,13 @@
             <button class="chip-ghost" onclick="toggleAddOfficer(this)">+ Add Officer</button>
           </div>
           <div class="officer-add-input" id="officer-add-input">
-            <input type="text" id="new-officer-name" placeholder="Officer name" />
-            <button onclick="addOfficer()">Add</button>
-            <button onclick="cancelAddOfficer()" style="background:var(--bg);color:var(--text-2);border:1.5px solid var(--border);font-size:12px;padding:6px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif;">Cancel</button>
+            <div class="officer-search-row">
+              <div class="officer-search-wrap">
+                <input type="text" id="new-officer-name" placeholder="Search officers…" oninput="filterOfficers(this.value)" autocomplete="off" />
+                <div class="officer-dropdown" id="officer-dropdown"></div>
+              </div>
+              <button onclick="cancelAddOfficer()" style="background:var(--bg);color:var(--text-2);border:1.5px solid var(--border);font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif;flex-shrink:0;">Cancel</button>
+            </div>
           </div>
         </div>
 
@@ -6359,25 +6407,63 @@
     setTimeout(() => chip.remove(), 160);
   }
 
+  const OFFICER_LIST = [
+    { name: 'Guy Nutter',     initials: 'GN', color: '#1B2D4F' },
+    { name: 'Dom Dolla',      initials: 'DD', color: '#3B82F6' },
+    { name: 'Sarah Kim',      initials: 'SK', color: '#5B7FC4' },
+    { name: 'Marcus Webb',    initials: 'MW', color: '#059669' },
+    { name: 'Priya Sharma',   initials: 'PS', color: '#7C3AED' },
+    { name: 'James Okafor',   initials: 'JO', color: '#D97706' },
+    { name: 'Elena Torres',   initials: 'ET', color: '#DB2777' },
+    { name: 'Devon Reyes',    initials: 'DR', color: '#0891B2' },
+    { name: 'Tyrone Mitchell',initials: 'TM', color: '#65A30D' },
+    { name: 'Sandra Park',    initials: 'SP', color: '#9333EA' },
+    { name: 'Lucas Hoffman',  initials: 'LH', color: '#EA580C' },
+    { name: 'Nadia Chen',     initials: 'NC', color: '#0F766E' },
+  ];
+
+  function _getAddedOfficerNames() {
+    return [...document.querySelectorAll('#officers-chips .chip')].map(c => c.textContent.replace('×','').trim());
+  }
+
   function toggleAddOfficer(ghostBtn) {
     const addInput = document.getElementById('officer-add-input');
     addInput.classList.add('show');
     ghostBtn.style.display = 'none';
-    document.getElementById('new-officer-name').focus();
+    const input = document.getElementById('new-officer-name');
+    input.value = '';
+    input.focus();
+    filterOfficers('');
   }
 
-  function addOfficer() {
-    const input = document.getElementById('new-officer-name');
-    const name = input.value.trim();
-    if (!name) return;
+  function filterOfficers(val) {
+    const dd = document.getElementById('officer-dropdown');
+    const added = _getAddedOfficerNames();
+    const matches = OFFICER_LIST.filter(o =>
+      !val.trim() || o.name.toLowerCase().includes(val.toLowerCase())
+    );
+    if (matches.length === 0) {
+      dd.innerHTML = '<div class="officer-dd-empty">No officers found</div>';
+    } else {
+      dd.innerHTML = matches.map(o => {
+        const isAdded = added.includes(o.name);
+        return `<div class="officer-dd-option${isAdded ? ' already-added' : ''}" onclick="selectOfficer('${o.name}')">
+          <div class="officer-dd-av" style="background:${o.color}">${o.initials}</div>
+          <span>${o.name}</span>
+          ${isAdded ? '<span style="font-size:11px;color:var(--text-3);margin-left:auto">Added</span>' : ''}
+        </div>`;
+      }).join('');
+    }
+    dd.style.display = 'block';
+  }
 
+  function selectOfficer(name) {
     const wrap = document.getElementById('officers-chips');
+    if ([...wrap.querySelectorAll('.chip')].some(c => c.textContent.replace('×','').trim() === name)) return;
     const chip = document.createElement('span');
     chip.className = 'chip';
     chip.innerHTML = name + ' <button class="chip-remove" onclick="removeChip(this)">×</button>';
     wrap.insertBefore(chip, wrap.querySelector('.chip-ghost') || null);
-
-    input.value = '';
     cancelAddOfficer();
   }
 
@@ -6387,7 +6473,16 @@
     const ghostBtn = document.querySelector('#officers-chips .chip-ghost');
     if (ghostBtn) ghostBtn.style.display = '';
     document.getElementById('new-officer-name').value = '';
+    const dd = document.getElementById('officer-dropdown');
+    if (dd) dd.style.display = 'none';
   }
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#officer-add-input')) {
+      const dd = document.getElementById('officer-dropdown');
+      if (dd) dd.style.display = 'none';
+    }
+  });
 
   // ================================================================
   // LINK EVIDENCE SIGN-OFF MODAL
